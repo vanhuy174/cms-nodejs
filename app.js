@@ -29,8 +29,9 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
      // CONSTANTs
-// const MONGODB_URI  = 'mongodb+srv://al_nikolic:Peradetlic1@cluster0-eyxah.mongodb.net/shop2?retryWrites=true'; // for development phase
-const MONGODB_URI  = 'mongodb+srv://' + env.mongodbUser + ':' + env.mongodbPassword + '@cluster0-eyxah.mongodb.net/' + env.mongodbDefaultDB; // for deployment phase
+// const MONGODB_URI  = 'mongodb+srv://vanhuy:vanhuy@cluster0-eyxah.mongodb.net/admin'; // for development phase
+const MONGODB_URI  = 'mongodb://localhost:27017/cms'; // for development phase
+// const MONGODB_URI  = 'mongodb+srv://' + env.mongodbUser + ':' + env.mongodbPassword + '@cluster0-eyxah.mongodb.net/' + env.mongodbDefaultDB; // for deployment phase
 
           // MIDDLEWAREs	
      // Mid. for setting a Public folder - as a default one to use in views with src and href
@@ -44,7 +45,8 @@ app.use(fileUpload());
      // SESSION and FLASH Middlewares
 const store = new MongoDBSessionStore({uri: MONGODB_URI, collection: 'sessions'});  
 app.use(session({
-     secret: env.sessionSecret,
+     // secret: env.sessionSecret,
+     secret: 'mySecretKey',
      resave: false,
      saveUninitialized: false,
      store: store
@@ -115,7 +117,7 @@ const productsController = require('./controllers/admin/productsController');
 const infoPagesController = require('./controllers/admin/infoPagesController');
 const isAuth = require('./middlewares/isAuth');
 
-app.post('/admin/reorder-pages', isAuth.isAdmin, pagesController.postReorderPages);
+app.post(' ', isAuth.isAdmin, pagesController.postReorderPages);
 app.post('/admin/reorder-info-pages', isAuth.isAdmin, infoPagesController.postReorderInfoPages);
 app.post('/admin/reorder-categories', isAuth.isAdmin, categoriesController.postReorderCategories);
 app.post('/admin/reorder-products', isAuth.isAdmin, productsController.postReorderProducts);
@@ -160,7 +162,8 @@ db.once('open', () => {
      console.log('Connected to DB');
 });
 
-app.listen(process.env.PORT || 4000, () => {
+// app.listen(process.env.PORT || 4000, () => {
+app.listen(3000, () => {
      console.log('Server started.');
 });
 

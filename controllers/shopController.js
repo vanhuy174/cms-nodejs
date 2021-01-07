@@ -46,8 +46,9 @@ exports.getHomePage = async (req, res, next) => {
           // Render view file and send data	
           res.render('shop/indexM', {
                page: page,
-               title: page.title,
-               popularProds: popularProds, 
+               // title: page.title,
+               title: "This is page",
+               popularProds: popularProds,
                bestSellProds: bestSellProds, 
                specialProds: specialProds, 
                newProds: newProds, 
