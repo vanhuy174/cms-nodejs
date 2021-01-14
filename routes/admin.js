@@ -58,6 +58,32 @@ router.get('/delete-galimage/:firstSlug', isAuth.isAdmin, productsController.get
 
 router.get('/delete-product/:slug', isAuth.isAdmin, productsController.getDeleteProduct);
 
+const cmsCategoriesController = require('../controllers/admin/cmsCategoriesController');
+router.get('/cmsCategories', isAuth.isAdmin, cmsCategoriesController.getCategoriesCms);
+// router.post('/reorder-categories', isAuth.isAdmin, cmsCategoriesController.postReorderCategories);
+
+router.get('/add-cmsCategory', isAuth.isAdmin, cmsCategoriesController.getAddCategoryCms);
+router.post('/add-cmsCategory', isAuth.isAdmin, isValid.checkCategoryValues, cmsCategoriesController.postAddCategoryCms);
+
+router.get('/edit-cmsCategory/:slug', isAuth.isAdmin, cmsCategoriesController.getEditCategoryCms);
+router.post('/edit-cmsCategory', isAuth.isAdmin, isValid.checkCategoryValues, cmsCategoriesController.postEditCategoryCms);
+router.get('/delete-image/cmsCategory/:firstSlug', isAuth.isAdmin, cmsCategoriesController.getDeleteImage);
+
+router.get('/delete-cmsCategory/:slug', isAuth.isAdmin, cmsCategoriesController.getDeleteCategoryCms);
+
+
+const cmsBlogControler = require('../controllers/admin/cmsBlogControler');
+router.get('/blogs', isAuth.isAdmin, cmsBlogControler.getBlogsListPage);
+
+router.get('/add-blog', isAuth.isAdmin, cmsBlogControler.getAddBlogPage);
+router.post('/add-blog', isAuth.isAdmin, isValid.checkProductValues, cmsBlogControler.postAddBlog);
+
+router.get('/edit-blog/:slug', isAuth.isAdmin, cmsBlogControler.getEditBlog);
+router.post('/edit-blog', isAuth.isAdmin, isValid.checkProductValues, cmsBlogControler.postEditBlog);
+// router.post('/product-gallery/:firstSlug', isAuth.isAdmin, cmsBlogControler.postDropImagesToGallery);
+router.get('/delete-blogImage/:firstSlug', isAuth.isAdmin, cmsBlogControler.getDeleteImage);
+
+router.get('/delete-blog/:slug', isAuth.isAdmin, cmsBlogControler.getDeleteBlog);
 
 const brandsController = require('../controllers/admin/brandsController');
 router.get('/brands', isAuth.isAdmin, brandsController.getBrandsListPage);

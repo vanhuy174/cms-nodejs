@@ -1,0 +1,97 @@
+<%- include('../layouts/headerM.ejs') %>
+<%- include('../layouts/admin-navigationM.ejs') %>
+
+
+<!-- PARALLAX BANNER -->
+<div class="breadcrumb parallax-container">
+    <% pages.forEach(page => {
+    if(page.firstSlug == 'shop') { %>
+        <div class="parallax"><img src="/images/pages/<%= page.firstSlug %>/<%= page.banner %>" alt="<%= page.banner %>"></div>
+    <% }
+    }); %>
+    <h1 class="product-title"><%= title %></h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/admin/home">Admin</a></li>
+        <li><a href="/admin/blogs">All Blog</a></li>
+    </ul>
+</div>
+<!-- End of PARALLAX BANNER -->
+
+
+
+<!-- BELLOW BANNER CONTENT -->
+<main class="container">
+    <div class="row">
+
+        <div class="content col-sm-12">
+
+            <!-- FLASH MESSAGES -->
+            <%- include('../layouts/flashMessages.ejs') %>
+
+            <h1>All blog</h1>
+            <p>Drag and drop products in the table in order to rearrange their visual order at Home and Shop pages of the website.</p>
+            <br>
+            <a class="btn btn-primary" href="/admin/add-blog">Add new blog</a>
+            <br><br><br>
+
+            <% if(blogs.length > 0) { %>
+                <!--  TABLE  -->
+                <table class="table table-striped sorting">
+                    <thead>
+                    <tr class="home">
+                        <th class="text-center">NAME</th>
+                        <th class="text-center">IMAGE</th>
+                        <th class="text-center">CATEGORY</th>
+                        <th class="text-center">EDIT</th>
+                        <th class="text-center">DELETE</th>
+                    </tr>
+                    </thead>
+                    <tbody class="reorder">
+                    <% blogs.forEach(product => { %>
+                        <tr id="id_<%= product._id %>" class="<%= product.slug %>">
+                            <td><a href="/products/<%= product.category.slug %>/<%= product.slug %>"><%= product.title %></a></td>
+                            <td class="text-center">
+                                <% if(!product.image) { %>
+                                    <img src="/images/products/noimage.png" style="height: 40px;">
+                                <% } else { %>
+                                    <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" style="height: 40px;">
+                                <% } %>
+                            </td>
+                            <td class="text-center"><%= product.category.title %></td>
+                            <td class="text-center"><a href="/admin/edit-blog/<%= product.slug %>">Edit</a></td>
+                            <td class="text-center"><a href="/admin/delete-blog/<%= product.slug %>" onclick="return confirm('Are you sure you want to delete this blog?')">Delete</a></td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+                <!--  End of TABLE  -->
+            <% } else { %>
+                <br>
+                <h3 class="product-title">No blogs found</h3>
+            <% } %>
+
+            <!-- PAGINATION -->
+
+        </div>
+
+    </div>
+</main>
+<!-- End of BELOW BANNER CONTENT -->
+
+<!--  JQUERY script to enable REORDERING of products  -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<!--<script>-->
+<!--    $('.reorder').sortable({-->
+<!--        items: "tr:not('.home')",-->
+<!--        placeholder: "ui-state-highlight",-->
+<!--        update: function() {-->
+<!--            var ids = $('.reorder').sortable("serialize");-->
+<!--            var url = "/admin/reorder-products";-->
+<!--            $.post(url, ids);-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
+
+<%- include('../layouts/footerM.ejs') %>

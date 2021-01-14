@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="abf6134a-f43b-42e1-bb2f-cf0aa102d741" name="thaihung" url="http://thaihung.htc-it.team">
+        <fileTransfer rootFolder="/domains/thaihung.htc-it.team/public_html" host="thaihung.htc-it.team" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="97f6a74b-843a-4080-8883-aafb4140d3a7" name="binhnguyenan" url="http://binhnguyenan.vn">
+        <fileTransfer rootFolder="/domains/binhnguyenan.vn/public_html" host="binhnguyenan.vn" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="448596fa-8aa9-453f-ace0-eb0ead774ce9" name="anlacvien" url="http://anlacvienthainguyen.vn">
+        <fileTransfer rootFolder="/domains/anlacvienthainguyen.vn/public_html" host="anlacvienthainguyen.vn" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
