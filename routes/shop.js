@@ -8,6 +8,11 @@ router.get('/products', shopController.getAllProducts);
 router.get('/products/:categorySlug', shopController.getProductsByCategory);
 router.get('/products/:categorySlug/:prodSlug', shopController.getProduct);
 
+router.get('/blogs', shopController.blogsgetAll);
+router.get('/blogs/category/:id', shopController.blogCategory);
+router.get('/blogs/:id', shopController.readMore);
+
+
 router.get('/brands', shopController.getAllBrands);
 router.get('/brands/:brandSlug', shopController.getProductsByBrand);
 

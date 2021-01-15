@@ -5,6 +5,20 @@ const { validationResult } = require('express-validator/check');
 
 const Page = require('../../models/Page');
 
+
+exports.getHomeAdmin = async (req, res, next) => {
+     try {
+          const pages = await Page.find().sort({sorting: 1});
+          // Render view file and send data
+          res.render('admin/admin-homeM', {
+               title: 'Home',
+               pages: pages,
+          });
+     } catch(err) {
+          console.log(err);
+     }
+}
+
 exports.getPagesListPage = async (req, res, next) => {
      try {
           const pages = await Page.find().sort({sorting: 1});

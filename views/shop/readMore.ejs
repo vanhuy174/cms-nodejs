@@ -1,0 +1,61 @@
+<%- include('../layouts/headerUser.ejs') %>
+
+<div class="breadcrumb parallax-container">
+    <div class="parallax"></div>
+    <h1>Tất cả sản phẩm </h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <!-- <li><a href="#">Account</a></li> -->
+        <li><a href="/products">Sản phẩm</a></li>
+    </ul>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 d-right">
+            <div class="div-right-1">
+                <div class="col-md-12 col-sm-12 col-12">
+                    <div class="row dong">
+                        <div class="col-md-12">
+                            <h3 class="blog-item-name" style="text-align: center">
+                                <a href=""><%= news.title %></a>
+                            </h3>
+                        </div>
+                        <div class="col-md-12  anh-left">
+                            <a href="/products/<%= news.category.slug %>/<%= news.slug %>">
+                                <img class="img-responsive img-fluid" title="<%= news.title %>" alt="<%= news.image %>" src="/images/products/<%= news.firstSlug %>/<%= news.image %>">
+                            </a>
+                        </div>
+                        <div class="b col-md-12 ">
+
+                            <p class="blog-item-summary">
+                                <%- news.features %>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 d-left">
+            <div class="div-left-1">
+                <div class="col-md-12 col-sm-12 col-12 col3">
+                    <p class=" danh-muc">DANH MỤC BÀI VIẾT</p>
+                    <% cmscategori.forEach(cmscategori => { %>
+                        <li class="list-group-item">
+                            <i class="fa fa-square" aria-hidden="true"></i>
+                            <a href="/blogs/<%= cmscategori.slug %>" class="activSub lg " style="text-transform: none"><%= cmscategori.title %></a>
+
+                        </li>
+                    <% }); %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<%- include('../layouts/userFooter.ejs') %>

@@ -1,5 +1,4 @@
-<%- include('../layouts/headerM.ejs') %>
-<%- include('../layouts/navigationM.ejs') %>
+<%- include('../layouts/headerUser.ejs') %>
 
 
 <!-- PARALLAX BANNER -->
@@ -9,7 +8,7 @@
   <ul>
     <li><a href="/">Home</a></li>
     <!-- <li><a href="#">Account</a></li> -->
-    <li><a href="/login">Login</a></li>
+    <li><a href="/login">Loginn</a></li>
   </ul>
 </div>
 <!-- End of PARALLAX BANNER -->
@@ -43,7 +42,7 @@
             </label>
           </div> -->
           <p>By creating an account you will be able to shop products, be up to date on an order's status, and keep track of the orders you have previously made.</p>
-          <a href="/register"><input type="button" value="Continue" id="button-account" data-loading-text="Loading..." class="btn btn-primary"></a>
+          <a href="/register"><input type="button" value="Continue" id="button-account" data-loading-text="Loading..." class="btn btn-success"></a>
         </div>
         <!-- End of NEW CUSTOMER FORM -->
 
@@ -81,7 +80,7 @@
             </div>
 
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <input type="submit" value="Login" id="button-login" data-loading-text="Loading..." class="btn btn-primary">
+            <input type="submit" value="Login" id="button-login" data-loading-text="Loading..." class="btn btn-success">
           </form>
 
         </div>
@@ -96,4 +95,4 @@
 <!-- End of BELOW BANNER CONTENT -->
 
 
-<%- include('../layouts/footerM.ejs') %>
+<%- include('../layouts/userFooter.ejs') %>

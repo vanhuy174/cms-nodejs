@@ -1,10 +1,11 @@
-<%- include('../layouts/headerM.ejs') %>
-<%- include('../layouts/navigationM.ejs') %>
+
+<%- include('../layouts/headerUser.ejs') %>
+
 
 
 <!-- PARALLAX BANNER -->
 <div class="breadcrumb parallax-container">
-  <div class="parallax"><img src="/images/prlx.jpg" alt="#"></div>
+  <div class="parallax"></div>
   <h1><%= product.title %></h1>
   <ul>
     <li><a href="/">Home</a></li>
@@ -33,7 +34,7 @@
             <!-- PRODUCT IMAGE -->
             <div>
               <a class="thumbnail fancybox" href="/images/products/<%= product.firstSlug %>/<%= product.image %>" title="<%= product.title %>">
-                <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" title="<%= product.title %>" alt="<%= product.image %>">
+                <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" title="<%= product.title %>" alt="<%= product.image %>" >
               </a>
             </div>
             <!-- End of PRODUCT IMAGE -->
@@ -67,13 +68,9 @@
       
           <h1 class="productpage-title"><%= product.title %></h1>
           <!--Stars -->
-          <div class="rating"> 
-            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
-            <span class="riview"><a href="#">1 reviews</a> / <a href="#">Write a review</a></span> 
+          <div class="rating">
+
+            <span class="riview"><a href="#">1 reviews</a> / <a href="#">Write a review</a></span>
           </div>
           <!-- End of Stars -->
           <!-- Prices -->
@@ -139,14 +136,14 @@
                 <input id="qty" placeholder="1" type="number"> -->
                 <ul class="button-group list-btn">
                   <li>
-                    <button type="button" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wish List"><a href="/wishlist/add/<%= product.slug %>"><i class="fa fa-heart-o"></i></a></button>
+                    <button type="button" class="wishlist btn btn-success" data-toggle="tooltip" data-placement="top" title="Add to Wish List"><a href="/wishlist/add/<%= product.slug %>"><i class="fa fa-heart-o"></i></a></button>
                   </li>
                   <!-- Add to Cart button -->
                   <li>
                     <% if(user) { %>
-                      <button type="button" class="addtocart-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart"><a href="/cart/add/<%= product.slug %>"><i class="fa fa-shopping-bag"></i></a></button>
+                      <button type="button" class="addtocart-btn btn btn-success" data-toggle="tooltip" data-placement="top" title="Add to Cart"><a href="/cart/add/<%= product.slug %>"><i class="fa fa-shopping-bag"></i></a></button>
                     <% } else { %>
-                      <button type="button" class="addtocart-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart" onclick="return confirm('Please log in, order to be able to purchase this product!')"><i class="fa fa-shopping-bag"></i></button>
+                      <button type="button" class="addtocart-btn btn btn-success" data-toggle="tooltip" data-placement="top" title="Add to Cart" onclick="return confirm('Please log in, order to be able to purchase this product!')"><i class="fa fa-shopping-bag"></i></button>
                     <% } %>
                   </li>
                   <!-- Compare button -->
@@ -178,7 +175,7 @@
           <div class="tab-pane active" id="tab-description">
             <div class="cpt_product_description ">
               <div>
-                <p><%- product.description %></p>
+                  <p><%- product.description %></p>
               </div>
             </div>
             <!-- cpt_container_end --></div>
@@ -199,21 +196,7 @@
                   <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
                 </div>
               </div>
-              <div class="form-group required">
-                <div class="col-sm-12">
-                  <label class="control-label">Rating</label>
-                  &nbsp;&nbsp;&nbsp; Bad&nbsp;
-                  <input type="radio" name="rating" value="1" />
-                  &nbsp;
-                  <input type="radio" name="rating" value="2" />
-                  &nbsp;
-                  <input type="radio" name="rating" value="3" />
-                  &nbsp;
-                  <input type="radio" name="rating" value="4" />
-                  &nbsp;
-                  <input type="radio" name="rating" value="5" />
-                  &nbsp;Good</div>
-              </div>
+
               <div class="buttons clearfix">
                 <div class="pull-right">
                   <button type="button" id="button-review" data-loading-text="Loading..." class="btn btn-primary">Continue</button>
@@ -222,6 +205,9 @@
             </form>
           </div>
         </div>
+
+
+
       </div>
       <!-- End of PRODUCT DESCRIPTION and REVIEW -->
 
@@ -231,58 +217,51 @@
       <h4 class="title-subline">What’s so special? Check it out!</h4>
       <div class="box">
         <div id="related-slidertab" class="row owl-carousel product-slider">
-
           <!-- Related Product -->
           <% relatedProducts.forEach(product => { %>
-            <div class="item">
-              <div class="product-thumb transition">
-                <!-- Product image -->
-                <div class="image product-imageblock"> 
-                  <a href="/products/<%= category.slug %>/<%= product.slug %>">
-                    <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" alt="<%= product.image %>" title="<%= product.title %>" class="img-responsive">
-                    <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" alt="<%= product.image %>" title="<%= product.title %>" class="img-responsive">
-                  </a>
-                  <ul class="button-group">
-                    <li>
-                      <button title="" data-placement="top" data-toggle="tooltip" class="wishlist" type="button" data-original-title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
-                    </li>
-                    <!-- <li>
-                      <button title="" data-placement="top" data-toggle="tooltip" class="compare" type="button" data-original-title="Compare this Product"><i class="fa fa-exchange"></i></button>
-                    </li> -->
-                    <li>
-                      <button title="" data-placement="top" data-toggle="tooltip" class="quick-view" type="button" data-original-title="Quick View"><a href="/products/<%= category.slug %>/<%= product.slug %>"><i class="fa fa-eye"></i></a></button>
-                    </li>
-                    <li>
-                      <% if(user) { %>
-                        <button type="button" data-placement="top" data-toggle="tooltip" class="addtocart-btn" title="Add to Cart"><a href="/cart/add/<%= product.slug %>"><i class="fa fa-shopping-bag"></i></a></button>
-                      <% } else { %>
-                        <button type="button" class="addtocart-btn" title="Add to Cart" data-placement="top" data-toggle="tooltip" onclick="return confirm('Please log in, order to be able to purchase this product!')"><i class="fa fa-shopping-bag"></i></button>
-                      <% } %>
-                    </li>
-                  </ul>
-                </div>
-                <!-- Product data -->
-                <div class="caption product-detail">
-                  <div class="rating"> 
-                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> 
-                  </div>
-                  <h4 class="product-name">
-                    <a href="/products/<%= category.slug %>/<%= product.slug %>" title="<%= product.title %>"><%= product.title %></a>
-                  </h4>
-                  <p class="price product-price">
-                    $<%= parseFloat(product.price).toFixed(2) %>
-                    <% if (product.originalPrice !== product.price) { %>
-                      <span class="less">$<%= parseFloat(product.originalPrice).toFixed(2) %></span>
+<!--copy-->
+          <div class="col-md-4 col-sm-6 col-6 clearfix">
+            <div class="product-info">
+              <a href="/products/<%= category.slug %>/<%= product.slug %>">
+                <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" alt="<%= product.image %>" title="<%= product.title %>" class="img-responsive img-fluid">
+              </a>
+              <div class="product">
+                <h4 class="product-name">
+                  <a href="/products/<%= category.slug %>/<%= product.slug %>" title="<%= product.title %>"><%= product.title %></a>
+                </h4>
+                <p class="price product-price">
+                  $<%= parseFloat(product.price).toFixed(2) %>
+                  <% if (product.originalPrice !== product.price) { %>
+                    <span class="less">$<%= parseFloat(product.originalPrice).toFixed(2) %></span>
+                  <% } %>
+                  <span class="price-tax">Ex Tax: $<%= parseFloat(product.price * 0.8).toFixed(2) %></span>
+                </p>
+              </div>
+              <div class="div-heart">
+                <ul class="ul-heart">
+                  <li>
+                    <button title="" data-placement="top" data-toggle="tooltip" class="wishlist hv_icon" type="button" data-original-title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+                  </li>
+                  <li>
+                    <button title="" data-placement="top" data-toggle="tooltip" class="quick-view hv_icon" type="button" data-original-title="Quick View"><a href="/products/<%= category.slug %>/<%= product.slug %>"><i class="fa fa-eye"></i></a></button>
+                  </li>
+                  <li>
+                    <% if(user) { %>
+                      <button type="button" data-placement="top" data-toggle="tooltip" class="addtocart-btn hv_icon" title="Add to Cart"><a href="/cart/add/<%= product.slug %>"><i class="fa fa-shopping-bag"></i></a></button>
+                    <% } else { %>
+                      <button type="button" class="addtocart-btn hv_icon" title="Add to Cart" data-placement="top" data-toggle="tooltip" onclick="return confirm('Please log in, order to be able to purchase this product!')"><i class="fa fa-shopping-bag"></i></button>
                     <% } %>
-                    <span class="price-tax">Ex Tax: $<%= parseFloat(product.price * 0.8).toFixed(2) %></span>
-                  </p>
-                </div>
+                  </li>
+                </ul>
               </div>
             </div>
+
+          </div>
+
+
+          <!--          realy-->
+
+<!--        end realy-->
           <% }); %>
           <!-- End of Related Product -->
 
@@ -300,5 +279,5 @@
 
 
 
-<%- include('../layouts/footerM.ejs') %>
+<%- include('../layouts/userFooter.ejs') %>
 

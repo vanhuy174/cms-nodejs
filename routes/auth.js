@@ -5,6 +5,9 @@ const isValid = require('../middlewares/isValid');
 const isAuth = require('../middlewares/isAuth');
 
 const authController = require('../controllers/authController');
+
+
+
 router.get('/register', authController.getRegisterPage);
 router.post('/register', isValid.checkRegisterUser, authController.postRegister);
 router.post('/register/billing', isAuth.isUser, isValid.checkAddress, authController.postBillingAddress);

@@ -1,0 +1,22 @@
+<%- include('../layouts/homeM.ejs') %>
+
+<div class="">
+        <img src="/images/info/<%= info.footerBanner %>" title="E-Commerce" alt="E-Commerce" class="img-responsive">
+
+</div>
+<!--  JQUERY script to enable REORDERING of pages  -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $('.reorder').sortable({
+        items: "tr:not('.home')",
+        placeholder: "ui-state-highlight",
+        update: function() {
+            var ids = $('.reorder').sortable("serialize");
+            var url = "/admin/reorder-pages";
+            $.post(url, ids);
+        }
+    });
+</script>
+
+
+<%- include('../layouts/footerMM.ejs') %>

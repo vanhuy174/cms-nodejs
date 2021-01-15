@@ -114,39 +114,42 @@
   <!-- SPECIAL PRODUCTS MENU -->
   <div class="special left-sidebar-widget">
     <div class="columnblock-title">Special Products</div>
-    <ul class="row ">
+    <ul class=" " style="padding-left: 0px">
 
       <!-- Special product -->
       <% specialProds.forEach(product => { %>
         <li class="product-layout">
-          <!-- Image -->
-          <div class="product-list col-xs-4">
-            <div class="product-thumb">
-              <div class="image product-imageblock">
+          <div class="the-tags">
+            <div class="khoi-nho row">
+              <div class="khoi-nho-left col-md-5">
                 <a href="/products/<%= product.category.slug %>/<%= product.slug %>">
                   <img class="img-responsive" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
-                  <img class="img-responsive" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
+
                 </a>
+                <div class="addto-cart">
+                  <% if(user) { %>
+                    <a href="/cart/add/<%= product.slug %>" style="text-transform: none">Add to Cart</a>
+                    <!-- <a href="/cart/add/<%= product.slug %>?url=<%= title %>">Add to Cart</a> -->
+                  <% } else { %>
+                    <a href="/cart/add/<%= product.slug %>" onclick="return confirm('Please log in, in order to be able to purchase this product!')" style="text-transform: none">Add to Cart</a>
+                  <% }; %>
+                </div>
               </div>
-            </div>
-          </div>
-          <!-- Data -->
-          <div class="col-xs-8">
-            <div class="caption product-detail">
-              <h4 class="product-name">
-                <a title="<%= product.title %>" href="/products/<%= product.category.slug %>/<%= product.slug %>"><%= product.title %></a>
-              </h4>
-              <p class="price product-price"> 
-                <span class="price-new">$<%= parseFloat(product.price).toFixed(2) %></span> 
-                <span class="less">$<%= parseFloat(product.originalPrice).toFixed(2) %></span> 
-              </p>
-              <div class="addto-cart">
-                <% if(user) { %>
-                  <a href="/cart/add/<%= product.slug %>">Add to Cart</a>
-                  <!-- <a href="/cart/add/<%= product.slug %>?url=<%= title %>">Add to Cart</a> -->
-                <% } else { %>
-                  <a href="/cart/add/<%= product.slug %>" onclick="return confirm('Please log in, in order to be able to purchase this product!')">Add to Cart</a>
-                <% }; %>
+              <div class="khoi-nho-right col-md-7">
+                <p class="kho-nr-p">  </p>
+                <div class="col-md-12">
+                  <h4 class="product-name">
+                    <a title="<%= product.title %>" href="/products/<%= product.category.slug %>/<%= product.slug %>"><%= product.title %></a>
+                  </h4>
+                  <p class="price product-price">
+                    <span class="price-new">$<%= parseFloat(product.price).toFixed(2) %></span>
+                    <span class="less">$<%= parseFloat(product.originalPrice).toFixed(2) %></span>
+                  </p>
+                </div>
+
+                <!--                  <a href="">Hạnh nhân Mỹ</a>-->
+
+
               </div>
             </div>
           </div>

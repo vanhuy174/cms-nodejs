@@ -1,0 +1,40 @@
+
+<script>
+    $(document).ready(function () {
+        $('#l').click(function () {
+            // alert('hello');
+            if (($(".testft").hasClass("div-ft"))) {
+                $("#l").removeClass("loc-add");
+                $(".testft").removeClass("div-ft");
+            } else {
+                $(".testft").addClass("div-ft");
+                $("#l").addClass("loc-add");
+            }
+        })
+        $('#btn-mobile').click(function () {
+            if ($("#menu-mobile").hasClass("display-block")) {
+                $("#menu-mobile").removeClass("display-block");
+            } else {
+                $("#menu-mobile").addClass("display-block");
+            }
+        })
+        $('#right-right').click(function () {
+            if ($("#menu-lever-2").hasClass("display-block")) {
+                $("#menu-lever-2").removeClass("display-block");
+            } else {
+                $("#menu-lever-2").addClass("display-block");
+            }
+
+        })
+        $('#nut').click(function () {
+            if ($("#lg02").hasClass("display-block")) {
+                $("#lg02").removeClass("display-block");
+            } else {
+                $("#lg02").addClass("display-block");
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

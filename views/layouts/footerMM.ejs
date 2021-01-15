@@ -1,0 +1,113 @@
+
+
+
+<footer>
+
+
+
+    <!-- MIDDLE FOOTER -->
+
+    <!-- End of MIDDLE FOOTER -->
+
+
+    <!-- BOTTOM FOOTER -->
+    <div class="footer-bottom">
+        <div id="bottom-footer">
+
+            <!-- PAGES LINKS -->
+            <ul class="footer-link">
+                <% pages.forEach(page => {
+                if(page.firstSlug == 'home') { %>
+                    <li><a href="/"><%= page.title %></a></li>
+                <% } else if(page.firstSlug == 'shop') { %>
+                    <li><a href="/products"><%= page.title %></a></li>
+                <% } else { %>
+                    <li><a href="/<%= page.slug %>"><%= page.title %></a></li>
+                <% }
+                }); %>
+            </ul>
+            <!-- End of PAGES LINKS -->
+
+            <!-- COPYRIGHT -->
+            <div class="copyright"> Copyright - <a class="yourstore" href="http://www.lionode.com/"> Created by <%= info.shopName %> &copy; 2019 </a></div>
+            <div class="footer-bottom-cms">
+                <div class="footer-payment">
+                    <ul>
+                        <li class="mastero"><a href="#"><img alt="" src="imageM/payment/mastero.jpg"></a></li>
+                        <li class="visa"><a href="#"><img alt="" src="imageM/payment/visa.jpg"></a></li>
+                        <li class="currus"><a href="#"><img alt="" src="imageM/payment/currus.jpg"></a></li>
+                        <li class="discover"><a href="#"><img alt="" src="imageM/payment/discover.jpg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End of COPYRIGHT -->
+
+        </div>
+    </div>
+    <!-- End of BOTTOM FOOTER -->
+
+
+    <!-- SCROLL BUTTON -->
+    <a id="scrollup">Scroll</a>
+</footer>
+
+
+<!-- PARALLAX JQUERY -->
+<script src="/javascriptM/jquery.parallax.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        $('.parallax').parallax();
+    });
+</script>
+
+
+<!--  CKEDITOR 5 JS -->
+<script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/classic/ckeditor.js"></script>
+<!-- JS to setup the CKEditor 5 Wysiwyg textarea height -->
+<script>
+    function MinHeightPlugin(editor) {
+        this.editor = editor;
+    }
+    MinHeightPlugin.prototype.init = function() {
+        this.editor.ui.view.editable.extendTemplate({
+            attributes: {
+                style: {
+                    minHeight: '200px'
+                }
+            }
+        });
+    };
+    ClassicEditor.builtinPlugins.push(MinHeightPlugin);
+</script>
+<!-- JS to enable CKEditor 5 Wysiwyg on textarea -->
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            // editor.ui.view.editableElement.style.height = '300px';
+            // window.editor1 = editor;
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    ClassicEditor
+        .create(document.querySelector('#editor2'))
+        .then(editor2 => {
+            // editor.ui.view.editableElement.style.height = '300px';
+            // window.editor2 = editor;
+            console.log(editor2);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<!-- End of CKEDITOR 5 JS -->
+
+
+<!-- JQUERY for FANCYBOX for SLIDESHOW of Photos (product details page) -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>

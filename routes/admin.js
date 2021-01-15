@@ -8,6 +8,8 @@ const pagesController = require('../controllers/admin/pagesController');
 router.get('/pages', isAuth.isAdmin, pagesController.getPagesListPage);
 // router.post('/reorder-pages', isAuth.isAdmin, pagesController.postReorderPages);
 
+router.get('/home', isAuth.isAdmin, pagesController.getHomeAdmin );
+
 router.get('/add-page', isAuth.isAdmin, pagesController.getAddPagePage);
 router.post('/add-page', isAuth.isAdmin, isValid.checkPageValues, pagesController.postAddPage);
 
@@ -77,5 +79,33 @@ router.get('/edit-info', isAuth.isAdmin, infoController.getEditInfoPage);
 router.post('/edit-info', isAuth.isAdmin, infoController.postEditInfo);
 
 router.get('/delete-image/info', isAuth.isAdmin, infoController.getDeleteImage);
+
+const cmsCategoriesController = require('../controllers/admin/cmsCategoriesController');
+router.get('/cmsCategories', isAuth.isAdmin, cmsCategoriesController.getCategoriesCms);
+// router.post('/reorder-categories', isAuth.isAdmin, cmsCategoriesController.postReorderCategories);
+
+router.get('/add-cmsCategory', isAuth.isAdmin, cmsCategoriesController.getAddCategoryCms);
+router.post('/add-cmsCategory', isAuth.isAdmin, isValid.checkCategoryValues, cmsCategoriesController.postAddCategoryCms);
+
+router.get('/edit-cmsCategory/:slug', isAuth.isAdmin, cmsCategoriesController.getEditCategoryCms);
+router.post('/edit-cmsCategory', isAuth.isAdmin, isValid.checkCategoryValues, cmsCategoriesController.postEditCategoryCms);
+router.get('/delete-image/cmsCategory/:firstSlug', isAuth.isAdmin, cmsCategoriesController.getDeleteImage);
+
+router.get('/delete-cmsCategory/:slug', isAuth.isAdmin, cmsCategoriesController.getDeleteCategoryCms);
+
+
+const cmsBlogControler = require('../controllers/admin/cmsBlogControler');
+router.get('/blogs', isAuth.isAdmin, cmsBlogControler.getBlogsListPage);
+
+router.get('/add-blog', isAuth.isAdmin, cmsBlogControler.getAddBlogPage);
+router.post('/add-blog', isAuth.isAdmin, isValid.checkProductValues, cmsBlogControler.postAddBlog);
+
+router.get('/edit-blog/:slug', isAuth.isAdmin, cmsBlogControler.getEditBlog);
+router.post('/edit-blog', isAuth.isAdmin, isValid.checkProductValues, cmsBlogControler.postEditBlog);
+// router.post('/product-gallery/:firstSlug', isAuth.isAdmin, cmsBlogControler.postDropImagesToGallery);
+router.get('/delete-blogImage/:firstSlug', isAuth.isAdmin, cmsBlogControler.getDeleteImage);
+
+router.get('/delete-blog/:slug', isAuth.isAdmin, cmsBlogControler.getDeleteBlog);
+
 
 module.exports = router;

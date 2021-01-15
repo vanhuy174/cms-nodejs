@@ -30,7 +30,8 @@ app.set('views', 'views');
 
      // CONSTANTs
 // const MONGODB_URI  = 'mongodb+srv://vanhuy:vanhuy@cluster0-eyxah.mongodb.net/admin'; // for development phase
-const MONGODB_URI  = 'mongodb://localhost:27017/cms'; // for development phase
+const MONGODB_URI  = 'mongodb://localhost:27017/CMSVEGETABLE'; // for development phase
+
 // const MONGODB_URI  = 'mongodb+srv://' + env.mongodbUser + ':' + env.mongodbPassword + '@cluster0-eyxah.mongodb.net/' + env.mongodbDefaultDB; // for deployment phase
 
           // MIDDLEWAREs	

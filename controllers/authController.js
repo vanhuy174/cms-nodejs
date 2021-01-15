@@ -10,6 +10,9 @@ const Product = require('../models/Product');
 const Subscriber = require('../models/Subscriber');
 const env = require('../config/env/env');
 
+const url = "http://localhost:3000/";
+const urll = "styles/";
+
 const transporter = nodemailer.createTransport(sendgrid({
      auth: { api_key: env.sendgridApiKey} 
 }) );    
@@ -18,6 +21,9 @@ const transporter = nodemailer.createTransport(sendgrid({
 exports.getRegisterPage = (req, res, next) => {
      // Render view file and send data	
      res.render('shop/registerM', {
+          url:url,
+          urll:urll,
+          style:"HoaQuaTN",
           oldInput: {},
           valErrors: [],
           title: 'Register'
@@ -308,7 +314,10 @@ exports.getLoginPage = (req, res, next) => {
      } else {
           // Render view file and send data	
           res.render('shop/loginM', {
-               title: 'Log in', 
+               title: 'Log in',
+               style: "HoaQuaTN",
+               url:url,
+               urll: urll,
                oldInput: {},  	            
                valErrors: [] 
           }); 

@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title><%= info.shopName %> <%= title %></title>
+  <title><%= info.shopName ?? " "%> <%= title %></title>
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="e-commerce site well design with responsive view." />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <meta property="og:title" content="CMS WebShop Platform">
-  <meta property="og:image" content="/images/info/<%= info.logo %>">
+  <meta property="og:image" content="/images/info/<%= info.logo ?? "" %>">
   <meta property="og:description" content="CMS Webshop Platform biult with Node.js and MongoDB">
   <meta property="og:url" content="https://cms-webshop.herokuapp.com/">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link href="/images/info/<%= info.favicon %>" rel="icon" type="image/png">
+  <link href="/images/info/<%= info.favicon ?? " "%>" rel="icon" type="image/png">
   <link href="/cssM/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="/javascriptM/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet"/>
   <link href="/cssM/stylesheet.css" rel="stylesheet">
   <link href="/cssM/responsive.css" rel="stylesheet">
-  <link href="/javascriptM/owl-carousel/owl.carousel.css" type="text/css" rel="stylesheet" media="screen" />
+  <link   href="/javascriptM/owl-carousel/owl.carousel.css" type="text/css" rel="stylesheet" media="screen" />
   <link href="/javascriptM/owl-carousel/owl.transitions.css" type="text/css" rel="stylesheet" media="screen" />
   
   <!-- FANCYBOX CSS for SLIDESHOW of Photos (product details page) -->
@@ -61,7 +61,6 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-
             <!-- Left side -->
             <div class="top-left pull-left">
               <div class="language">
@@ -99,7 +98,7 @@
                   <li class="dropdown">
                     <a href="#" title="My Account" class="dropdown-toggle" data-toggle="dropdown">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      <span>My Account</span> 
+                      <span>My Account</span>
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
@@ -145,10 +144,10 @@
       <div class="header-inner">
         <!-- LOWER HEADER - Left Side -->
         <div class="col-sm-3 col-xs-3 header-left">
-          <div id="logo"> 
+          <div id="logo">
             <a href="/">
               <img src="/images/info/<%= info.logo %>" title="E-Commerce" alt="E-Commerce" class="img-responsive">
-            </a> 
+            </a>
           </div>
         </div>
         <!-- End of LEFT SIDE -->
@@ -160,15 +159,15 @@
             <input type="text" name="search" value="" placeholder="Enter your keyword ..." class="form-control input-lg">
             <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-lg"><span>Search</span></button>
-            </span> 
+            </span>
           </div>
           <!-- End of SEARCH FORM -->
 
           <!-- CART -->
           <div id="cart" class="btn-group btn-block">
             <!-- CART BUTTON -->
-            <button type="button" class="btn btn-inverse btn-block btn-lg dropdown-toggle cart-dropdown-button"> 
-              <span id="cart-total"> 
+            <button type="button" class="btn btn-inverse btn-block btn-lg dropdown-toggle cart-dropdown-button">
+              <span id="cart-total">
                 <span>Shopping Cart</span>
                 <br>
                 <% if(typeof cart !== 'undefined' && cart.length > 0) { %>
@@ -179,7 +178,7 @@
                 item(s) -
                 <% if(typeof cart !== 'undefined') {
                   let total = 0;
-                    cart.forEach(item => { 
+                    cart.forEach(item => {
                       total += item.subtotal; }); %>
                   $<%= parseFloat(total).toFixed(2) %>
                 <% } else { %>
@@ -192,7 +191,7 @@
             <!-- CART CONTENT Dropdown -->
             <ul class="dropdown-menu pull-right cart-dropdown-menu">
 
-              <% if(typeof cart !== 'undefined') { 
+              <% if(typeof cart !== 'undefined') {
                 cart.forEach(item => { %>
                 <!-- CART CONTENT - 1st Item -->
                 <li>
@@ -234,7 +233,7 @@
                     <tbody>
                       <% if(typeof cart !== 'undefined') {
                         let total = 0;
-                          cart.forEach(item => { 
+                          cart.forEach(item => {
                             total += item.subtotal; }); %>
                         <tr>
                           <td class="text-right"><strong>Sub-Total</strong></td>
@@ -258,17 +257,17 @@
                   </table>
 
                   <!-- CART CONTENT Footer Buttons -->
-                  <p class="text-right"> 
+                  <p class="text-right">
                     <span class="btn-viewcart">
                       <a href="/cart">
                         <strong><i class="fa fa-shopping-cart"></i> View Cart</strong>
                       </a>
-                    </span> 
+                    </span>
                     <span class="btn-checkout">
                       <a href="/cart/checkout">
                         <strong><i class="fa fa-share"></i> Checkout</strong>
                       </a>
-                    </span> 
+                    </span>
                   </p>
                   <!-- End of CART CONTENT Footer Buttons -->
                 </div>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= info.shopName ?? " "%> <%= title %></title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="e-commerce site well design with responsive view." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta property="og:title" content="CMS WebShop Platform">
+    <meta property="og:image" content="/images/info/<%= info.logo ?? "" %>">
+    <meta property="og:description" content="CMS Webshop Platform biult with Node.js and MongoDB">
+    <meta property="og:url" content="https://cms-webshop.herokuapp.com/">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link href="/images/info/<%= info.favicon ?? " "%>" rel="icon" type="image/png">
+    <link href="/cssM/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/javascriptM/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet"/>
+    <link href="/cssM/stylesheet.css" rel="stylesheet">
+    <link href="/cssM/responsive.css" rel="stylesheet">
+    <link   href="/javascriptM/owl-carousel/owl.carousel.css" type="text/css" rel="stylesheet" media="screen" />
+    <link href="/javascriptM/owl-carousel/owl.transitions.css" type="text/css" rel="stylesheet" media="screen" />
+
+    <!-- FANCYBOX CSS for SLIDESHOW of Photos (product details page) -->
+    <link href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+
+    <!--  AJAX for REORDERING of ELEMENTS in the TABLE and for PAYPAL 'Ajax-Loader' GIF -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/javascriptM/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/javascriptM/bootstrap/js/bootstrap.min.js" ></script>
+    <script type="text/javascript" src="/javascriptM/template_js/jstree.min.js"></script>
+    <script type="text/javascript" src="/javascriptM/template_js/template.js"></script>
+    <script type="text/javascript" src="/javascriptM/common.js"></script>
+    <script type="text/javascript" src="/javascriptM/global.js"></script>
+    <script type="text/javascript" src="/javascriptM/owl-carousel/owl.carousel.min.js"></script>
+</head>
+
+
+<body class="index">
+
+<!-- LOAD GIF (MOONSTORE Template) -->
+<div class="preloader loader" style="display: block;">
+    <img src="/imageM/loader.gif">
+</div>
+
+
+<!-- AJAX GIF for PAYPAL BUYNOW visualisation-->
+<div class="ajax-bground">
+    <div class="ajax-inner">
+        <h3>You are now being redirected to Paypal ...</h3>
+        <img src="/images/ajax-loader.gif">
+    </div>
+</div>
+
+
+<header>
+    <!-- TOP HEADER -->
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Left side -->
+                    <div class="top-left pull-left">
+                        <div class="language">
+                            <form action="#" method="post" enctype="multipart/form-data" id="language">
+                                <div class="btn-group">
+                                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> English <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Arabic</a></li>
+                                        <li><a href="#"> English</a></li>
+                                        <li><a href="#"> French</a></li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="currency">
+                            <form action="#" method="post" enctype="multipart/form-data" id="currency">
+                                <div class="btn-group">
+                                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown"> <strong>USD</strong> <span class="caret"></span> </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Euro</a></li>
+                                        <li><a href="#">Pound</a></li>
+                                        <li><a href="#">USD</a></li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="wel-come-msg"> Welcome <% if(user) { %> <u><b><%= user.username %></b></u><% } %> to our online store! </div>
+                    </div>
+
+                    <!-- Right side-->
+                    <div class="top-right pull-right">
+                        <div id="top-links" class="nav pull-right">
+                            <ul class="list-inline">
+                                <!-- MY ACCOUNT Dropdown Menu -->
+                                <li class="dropdown">
+                                    <a href="#" title="My Account" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <span>My Account</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <!-- If USER is logged in -->
+                                        <% if(user) { %>
+                                            <li><a href="/logout">Logout</a></li>
+                                            <li><a href="/orders">Order History</a></li>
+                                        <% } else { %>
+                                            <!-- If USER is logged out -->
+                                            <li><a href="/login">Login</a></li>
+                                            <li><a href="/register">Register</a></li>
+                                        <% } %>
+                                    </ul>
+                                </li>
+                                <!-- End of MY ACCOUNT Dropdown Menu -->
+                                <!-- WISH LIST Menu -->
+                                <li>
+                                    <a href="/wishlist" id="wishlist-total">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                        <span>Wishlist</span>
+                                        <span> (<% if(typeof wishlist !== 'undefined' && wishlist.length > 0) { %>
+                                                <%= wishlist.length %>
+                                            <% } else { %>
+                                                0
+                                            <% } %>)
+                      </span>
+                                    </a>
+                                </li>
+                                <!-- End of WISH LIST Menu -->
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End of Right Side -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of TOP HEADER -->
+
+    <!-- LOWER HEADER -->
+    <div class="container asfdsfsaf">
+        <div class="header-inner ">
+            <!-- LOWER HEADER - Left Side -->
+            <div class="col-sm-3 col-xs-3 header-left">
+                <div id="logo">
+                    <a href="/">
+                        <img src="/images/info/<%= info.logo %>" title="E-Commerce" alt="E-Commerce" class="img-responsive" style="width: 150px">
+                    </a>
+                </div>
+            </div>
+            <!-- End of LEFT SIDE -->
+
+            <!-- LOWER HEADER - Right Side -->
+            <div class="col-sm-9 col-xs-9 header-right">
+                <nav id="menu" class="navbar">
+                    <div class="nav-inner">
+                        <!-- NAVBAR when in XS VIEW -->
+                        <div class="navbar-header">
+                            <span id="category" class="visible-xs">Categories</span>
+                            <button type="button" class="btn btn-navbar navbar-toggle"><i class="fa fa-bars"></i></button>
+                        </div>
+                        <!-- End of NAVBAR in XS VIEW -->
+                        <!-- NAVBAR when in DESKTOP VIEW -->
+                        <div class="navbar-collapse">
+                            <ul class="main-navigation">
+                                <li><a href="/admin/pages" class="parent">Pages</a></li>
+                                <li><a href="/admin/categories" class="parent">Categories</a></li>
+                                <li><a href="/admin/products" class="parent">Products</a></li>
+                                <li><a href="/admin/brands" class="parent">Brands</a></li>
+                                <li><a href="/admin/edit-info" class="parent">Site Data</a></li>
+                                <li><a href="/admin/info-pages" class="parent">Info Pages</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+            <!-- End of LOWER HEADER - Right Side -->
+
+        </div>
+    </div>
+    <!-- End of LOWER HEADER -->
+</header>
+
+
+
+
+
+
+

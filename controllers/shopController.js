@@ -9,11 +9,36 @@ const Category = require('../models/Category');
 const InfoPage = require('../models/InfoPage');
 const Order = require('../models/Order');
 const Brand = require('../models/Brand');
+const News = require('../models/CmsBlog');
+const CmsCategory = require('../models/CmsCategory');
 const env = require('../config/env/env');
+const url = "http://localhost:3000/";
+const urll = "styles/";
+
+
+
+exports.readMore = async (req, res, next)=>{
+     const id = req.params.id;
+
+     const news = await News.findOne({slug:id});
+     const cmscategori = await CmsCategory.find();
+     res.render('shop/readMore',{
+          news:news,
+          style: "ReadMore",
+          cmscategori:cmscategori,
+          urll: urll,
+          url: url,
+          // title: page.title,
+          title: "This is page",
+
+
+     });
+}
 
 
 exports.getHomePage = async (req, res, next) => {
      const ITEMS_PER_PAGE = 20;
+
      try {
           const page = await Page.findOne({firstSlug: 'home'});
           // Pagination - parse current page number
@@ -23,6 +48,7 @@ exports.getHomePage = async (req, res, next) => {
           const numOfProducts = await Product.find().countDocuments();
           numItems = numOfProducts;
           // Find all POPULAR products in DB that belong to the specified current page
+
           const popularProds = await Product.find({popular: true}).populate('category')
                .sort({sorting: 1})
                .skip((currentPage - 1) * ITEMS_PER_PAGE)
@@ -42,14 +68,43 @@ exports.getHomePage = async (req, res, next) => {
           const featuredProds = await Product.find({featured: true}).populate('category')
                .sort({sorting: 1})
                .skip((currentPage - 1) * ITEMS_PER_PAGE)
-               .limit(ITEMS_PER_PAGE); 
+               .limit(ITEMS_PER_PAGE);
+
+          const arrayCategory = await Category.find()
+              .limit(3);
+          // if (typeof arrayCategory[0] != "undefined" || arrayCategory[0] != null) {
+               const productsDaLat = await Product.find({category: arrayCategory[0]._id})
+                   .populate('category')
+                   .limit(8);
+          // }
+          // if (typeof arrayCategory[1] != "undefined" || arrayCategory[1] != null) {
+               const productsNhapKhau = await Product.find({category: arrayCategory[1]._id})
+                   .populate('category')
+                   .limit(8);
+          // }
+          // if (typeof arrayCategory[2] != "undefined" || arrayCategory[2] != null) {
+               const productsNewZ = await Product.find({category: arrayCategory[2]._id})
+                   .populate('category')
+                   .limit(8);
+          // }
+
+          const news = await News.find({featured:true})
+              .limit(3);
+
           // Render view file and send data	
           res.render('shop/indexM', {
                page: page,
+               style: "Trang_Chu",
+               urll: urll,
+               url: url,
                // title: page.title,
                title: "This is page",
+               news: news,
+               productsDaLat: productsDaLat,
+               productsNhapKhau: productsNhapKhau,
+               productsNewZ: productsNewZ,
                popularProds: popularProds,
-               bestSellProds: bestSellProds, 
+               bestSellProds: bestSellProds,
                specialProds: specialProds, 
                newProds: newProds, 
                popularProds: popularProds, 
@@ -103,11 +158,189 @@ exports.getInfoPage = async (req, res, next) => {
      }
 }
 
+exports.blogCategory = async (req, res, next) => {
+     // Parse filters:
+     const idcategory = await CmsCategory.findOne({slug: req.params.id } )
+     let ITEMS_PER_PAGE = +req.query.limit || 2;
+     const dir = req.query.dir || 'asc';
+     const order = req.query.order || 'sorting';
+     const stock = req.query.stock || '';
+     const price = req.query.price || '';
+     // Set price levels
+     const min = 0;
+     const med1 = 100;
+     const med2 = 300;
+     const max = 10000;
+     if(price === 'low') {
+          bottom = min;
+          top = med1;
+     } else if(price === 'medium') {
+          bottom = med1;
+          top = med2;
+     } else if(price === 'high') {
+          bottom = med2;
+          top = max;
+     }
+     numItems = await News.find({category: idcategory._id}).countDocuments();
+     while (ITEMS_PER_PAGE * order < numItems){
+          ITEMS_PER_PAGE = ITEMS_PER_PAGE - 1;
+     }
+     // Pagination - parse current page number
+     const currentPage = +req.query.page || 1;
+     try {
+          // Catch all products in DB
+          // Get total no. of products in DB
+          let news;
+          let numItems;
+          let numItemsIn;
+          let numItemsOut;
+          let numItemsLow;
+          let numItemsMedium;
+          let numItemsHigh;
 
+          // 1. When 'stock' filter is selected and 'price' filter is not selected
+          console.log(req.params.id);
+          news = await News.find({category: idcategory._id} )
+              .skip((currentPage - 1) * ITEMS_PER_PAGE)
+              .limit(ITEMS_PER_PAGE);
+          // numItems = await News.find({category: idcategory._id}).countDocuments();
+          numItemsIn = await News.find({availability: 'inStock'}).countDocuments();
+          numItemsOut = await News.find({availability: 'outOfStock'}).countDocuments();
+          numItemsLow = await News.find({$and: [{price: {$gte: min}}, {price: {$lt: med1}}]}).countDocuments();
+          numItemsMedium = await News.find({$and: [{price: {$gte: med1}}, {price: {$lt: med2}}]}).countDocuments();
+          numItemsHigh = await News.find({$and: [{price: {$gte: med2}}, {price: {$lt: max}}]}).countDocuments();
+
+          const cmscategori = await CmsCategory.find();
+          const category = await Category.find();
+          // Render view file and send data
+          // console.log(currentPage);
+
+
+          res.render('shop/blogs', {
+               url: url,
+               urll: urll,
+               style: 'block',
+               news:news,
+               categori:cmscategori,
+               title: 'All products',
+               category: category,
+               currentPage: currentPage,
+               nextPage: currentPage + 1,
+               prevPage: currentPage - 1,
+               lastPage: Math.ceil(numItems / ITEMS_PER_PAGE),
+               numItems: numItems,
+               min: min,
+               med1: med1,
+               med2: med2,
+               max: max,
+               numItemsIn: numItemsIn,
+               numItemsOut: numItemsOut,
+               numItemsLow: numItemsLow,
+               numItemsMedium: numItemsMedium,
+               numItemsHigh: numItemsHigh,
+               limit: ITEMS_PER_PAGE,
+               dir: dir,
+               order: order,
+               stock: stock,
+               price: price,
+               items: 'products'  // this is used in pagination.ejs to switch the word between 'products' and 'brands'
+          });
+     } catch(err) {
+          console.log(err);
+     }
+}
+
+exports.blogsgetAll = async (req, res, next) => {
+     // Parse filters:
+     const ITEMS_PER_PAGE = +req.query.limit || 2;
+     const dir = req.query.dir || 'asc';
+     const order = req.query.order || 'sorting';
+     const stock = req.query.stock || '';
+     const price = req.query.price || '';
+     // Set price levels
+     const min = 0;
+     const med1 = 100;
+     const med2 = 300;
+     const max = 10000;
+     if(price === 'low') {
+          bottom = min;
+          top = med1;
+     } else if(price === 'medium') {
+          bottom = med1;
+          top = med2;
+     } else if(price === 'high') {
+          bottom = med2;
+          top = max;
+     }
+     // Pagination - parse current page number
+     const currentPage = +req.query.page || 1;
+     try {
+          // Catch all products in DB
+          // Get total no. of products in DB
+          let news;
+          let numItems;
+          let numItemsIn;
+          let numItemsOut;
+          let numItemsLow;
+          let numItemsMedium;
+          let numItemsHigh;
+
+          // 1. When 'stock' filter is selected and 'price' filter is not selected
+
+          news = await News.find({featured: true}).populate('category')
+              .sort({sorting: 1})
+              .skip((currentPage - 1) * ITEMS_PER_PAGE)
+              .limit(ITEMS_PER_PAGE);
+          numItems = await News.find().countDocuments();
+          numItemsIn = await News.find({availability: 'inStock'}).countDocuments();
+          numItemsOut = await News.find({availability: 'outOfStock'}).countDocuments();
+          numItemsLow = await News.find({$and: [{price: {$gte: min}}, {price: {$lt: med1}}]}).countDocuments();
+          numItemsMedium = await News.find({$and: [{price: {$gte: med1}}, {price: {$lt: med2}}]}).countDocuments();
+          numItemsHigh = await News.find({$and: [{price: {$gte: med2}}, {price: {$lt: max}}]}).countDocuments();
+
+          const cmscategori = await CmsCategory.find();
+          const category = await Category.find();
+          // Render view file and send data
+          // console.log(currentPage);
+
+
+          res.render('shop/blogs', {
+               url: url,
+               urll: urll,
+               style: 'block',
+               news:news,
+               categori:cmscategori,
+               title: 'All products',
+               category: category,
+               currentPage: currentPage,
+               nextPage: currentPage + 1,
+               prevPage: currentPage - 1,
+               lastPage: Math.ceil(numItems / ITEMS_PER_PAGE),
+               numItems: numItems,
+               min: min,
+               med1: med1,
+               med2: med2,
+               max: max,
+               numItemsIn: numItemsIn,
+               numItemsOut: numItemsOut,
+               numItemsLow: numItemsLow,
+               numItemsMedium: numItemsMedium,
+               numItemsHigh: numItemsHigh,
+               limit: ITEMS_PER_PAGE,
+               dir: dir,
+               order: order,
+               stock: stock,
+               price: price,
+               items: 'products'  // this is used in pagination.ejs to switch the word between 'products' and 'brands'
+          });
+     } catch(err) {
+          console.log(err);
+     }
+}
 
 exports.getAllProducts = async (req, res, next) => {
      // Parse filters:
-     const ITEMS_PER_PAGE = +req.query.limit || 12;
+     const ITEMS_PER_PAGE = +req.query.limit || 2;
      const dir = req.query.dir || 'asc';
      const order = req.query.order || 'sorting';
      const stock = req.query.stock || '';
@@ -246,9 +479,12 @@ exports.getAllProducts = async (req, res, next) => {
           const specialProds = await Product.find({special: true}).populate('category')
                .sort({sorting: 1})
                .limit(3);
-          // Render view file and send data	
+          // Render view file and send data
           res.render('shop/categoryM', {
-               products: products, 
+               products: products,
+               url: url,
+               urll: urll,
+               style: "HoaQuaTN",
                specialProds: specialProds,
                title: 'All products',
                category: null,
@@ -410,7 +646,10 @@ exports.getProductsByCategory = async (req, res, next) => {
                .limit(3);
           // Render view file and send data	
           res.render('shop/categoryM', {
-               products: products, 
+               products: products,
+               url:url,
+               urll:urll,
+               style: "HoaQuaTN",
                specialProds: specialProds,
                title: category.title,
                category: category,
@@ -675,9 +914,16 @@ exports.getProduct = async (req, res, next) => {
                const gallery = 'public/images/products/' + product.firstSlug + '/gallery';
                let galleryImages = null;
                const images = await fsExtra.readdir(gallery);
-               // Render view file and send data	
+               // Render view file and send data
+
+               const cmscategori = await CmsCategory.find();
+
                res.render('shop/productM', {	
                     product: product,
+                    url: url,
+                    urll:urll,
+                    cmscategori:cmscategori,
+                    style: "HoaQuaTN",
                     category: category,
                     relatedProducts: relatedProducts,
                     title: product.title,
@@ -751,6 +997,9 @@ exports.getWishlistPage = async (req, res, next) => {
                // Render view file and send data
                res.render('shop/wishlistM', {
                     title: 'Wishlist',
+                    url:url,
+                    urll:urll,
+                    style: "HoaQuaTN",
                     specialProds: specialProds
                });
           }
@@ -868,6 +1117,9 @@ exports.getCartPage = async (req, res, next) => {
                // Render view file and send data
                res.render('shop/cartM', {
                     title: 'Cart',
+                    url:url,
+                    urll:urll,
+                    style:'HoaQuaTN',
                     specialProds: specialProds,
                     stripePubKey: env.stripePubKey
                });

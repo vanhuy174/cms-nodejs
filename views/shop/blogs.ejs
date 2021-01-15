@@ -1,0 +1,338 @@
+<%- include('../layouts/headerUser.ejs') %>
+
+<div class="breadcrumb parallax-container">
+    <div class="parallax"></div>
+    <h1>Tất cả sản phẩm </h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <!-- <li><a href="#">Account</a></li> -->
+        <li><a href="/blogs">Blogs</a></li>
+    </ul>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 d-right">
+            <div class="div-right-1">
+                <div class="row dong">
+                    <div class="col-md-8 col-sm-5 col-5 dong-left">
+                        <!-- Show : -->
+                        <div class="row">
+                            <div class="col-md-1 col-sm-5 col-5 text-right page-wrapper ">
+                                <label class="control-label" for="input-limit">Show:</label>
+                            </div>
+                            <div class="col-md-2 col-sm-5 col-5 text-right page-wrapper">
+                                <div class="limit">
+                                    <select id="input-limit" class="form-control" onchange="if(this.value) window.location.href = this.value">
+                                        <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=2&stock=<%= stock %>&price=<%= price %>" <% if(limit == 2) { %> selected <% } %>>2</option>
+                                        <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=4&stock=<%= stock %>&price=<%= price %>" <% if(limit == 4) { %> selected <% } %>>4</option>
+                                        <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=36&stock=<%= stock %>&price=<%= price %>" <% if(limit == 36) { %> selected <% } %>>36</option>
+                                        <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=48&stock=<%= stock %>&price=<%= price %>" <% if(limit == 48) { %> selected <% } %>>48</option>
+                                        <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=96&stock=<%= stock %>&price=<%= price %>" <% if(limit == 96) { %> selected <% } %>>96</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row dong-botton">
+                    <% news.forEach(product => { %>
+                        <div class="div-right-1">
+                            <div class="col-md-12 col-sm-12 col-12">
+                                <div class="row dong-duoi">
+                                    <div class="col-md-5 col-sm-12 col-12  anh-left">
+                                        <a href="/products/<%= product.category.slug %>/<%= product.slug %>">
+                                            <img class="img-responsive img-fluid" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-7 col-sm-12 col-12 b">
+                                        <h3 class="blog-item-name">
+                                            <a href=""><%= product.title %></a>
+                                        </h3>
+                                        <div class="post-time">
+                                            Việt bởi <span>Đặng Hữu Danh</span>, Ngày 14/03/2017
+                                        </div>
+                                        <p class="blog-item-summary">
+                                            <%- product.features %>
+                                        </p>
+                                        <a href="blogs/<%=product.slug %>" class="btn btn-white">Đọc thêm</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+
+                </div>
+                <%- include('../layouts/paginationM.ejs') %>
+            </div>
+        </div>
+        <div class="col-md-3 d-left">
+            <div class="div-left-1">
+                <div class="col-md-12 col-sm-12 col-12 col3">
+                    <p class=" danh-muc">DANH MỤC BÀI VIẾT</p>
+                    <ul class="list-group box-category treeview">
+
+                        <!-- Link -> Category -->
+                        <% categori.forEach(cmscategori => { %>
+                            <li class="list-group-item">
+                                <i class="fa fa-square" aria-hidden="true"></i>
+                                <a href="/blogs/category/<%= cmscategori.slug %>" class="activSub lg " style="text-transform: none"><%= cmscategori.title %></a>
+
+                            </li>
+                        <% }); %>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="div-left-2">
+                <div class="col-md-12 col-sm-12 col-12 col3">
+                    <p class=" danh-muc">NHỮNG BÀI VIẾT</p>
+                    <% news.forEach(product => { %>
+                        <div class="the-tags">
+                            <div class="khoi-nho row">
+                                <div class="khoi-nho-left col-md-5">
+                                    <a href="/blogs/<%= product.slug %>">
+                                        <img class="img-responsive img-fluid" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
+                                    </a>
+
+                                </div>
+                                <div class="khoi-nho-right col-md-7">
+                                    <p class="kho-nr-p">  </p>
+                                    <div class="col-md-12">
+                                        <h4 class="product-name">
+                                            <a href="/blogs/<%= product.slug%>"><%= product.title %></a>
+                                        </h4>
+
+                                    </div>
+
+                                    <!--                  <a href="">Hạnh nhân Mỹ</a>-->
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loc" id="l">
+    <i class="fa fa-filter" aria-hidden="true"></i>
+</div>
+
+<div class="testft">
+    <div class="div-left-1">
+        <div class="col-md-12 col-sm-12 col-12 col3">
+            <p class=" danh-muc">DANH MỤC</p>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    <a href="" class="lg  ">Trang chủ</a>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    <a href="" class="lg">Sản phẩm</a>
+                    <i class="fa fa-angle-down" id="nutt" aria-hidden="true"></i>
+                    <ul class="list-group-02" id="lg022">
+                        <li>
+                            <i class="fa fa-square" aria-hidden="true"></i>
+                            <a href="" class="mna">Hoa quả trong nước</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-square" aria-hidden="true"></i>
+                            <a href="" class="mna">Hoa quả nhập khẩu</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-square" aria-hidden="true"></i>
+                            <a href="" class="mna">Hoa quả theo mùa</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-square" aria-hidden="true"></i>
+                            <a href="" class="mna">Hoa quả sạch</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    <a href="" class="lg ">Blog</a>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    <a href="" class="lg ">Giới thiệu</a>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    <a href="" class="lg">Liên hệ</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="div-left-2">
+        <div class="col-md-12 col-sm-12 col-12 col3 ">
+            <p class=" danh-muc">THEO MỨC GIÁ</p>
+            <div class="the-tags">
+                <span class="the-tags-item"><a href="">Cam</a></span>
+                <span class="the-tags-item"><a href="">Dâu</a></span>
+                <span class="the-tags-item"><a href="">Hoa quả</a></span>
+                <span class="the-tags-item"><a href="">Rau sạch</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="div-left-1">
+        <div class="col-md-12 col-sm-12 col-12 col3">
+            <p class=" danh-muc">THEO LOẠI</p>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label class="lb">
+                        <input type="checkbox" class="cb">
+                        Hoa quả tươi
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <label class="lb">
+                        <input type="checkbox" class="cb">
+                        Thực phẩm sạch
+                    </label>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!--  <div class="div-left-1">-->
+    <!--    <div class="col-md-12 col-sm-12 col-12 col3">-->
+    <!--      <p class=" danh-muc">THEO THƯƠNG HIỆU</p>-->
+    <!--      <ul class="list-group">-->
+    <!--        <li class="list-group-item">-->
+    <!--          <label class="lb">-->
+    <!--            <input type="checkbox" class="cb">-->
+    <!--            Canada-->
+    <!--          </label>-->
+    <!--        </li>-->
+    <!--        <li class="list-group-item">-->
+    <!--          <label class="lb">-->
+    <!--            <input type="checkbox" class="cb">-->
+    <!--            Hoa kỳ-->
+    <!--          </label>-->
+    <!--        </li>-->
+    <!--        <li class="list-group-item">-->
+    <!--          <label class="lb">-->
+    <!--            <input type="checkbox" class="cb">-->
+    <!--            Rasa-->
+    <!--          </label>-->
+    <!--        </li>-->
+    <!--        <li class="list-group-item">-->
+    <!--          <label class="lb">-->
+    <!--            <input type="checkbox" class="cb">-->
+    <!--            Totari-->
+    <!--          </label>-->
+    <!--        </li>-->
+    <!--        <li class="list-group-item">-->
+    <!--          <label class="lb">-->
+    <!--            <input type="checkbox" class="cb">-->
+    <!--            Úc-->
+    <!--          </label>-->
+    <!--        </li>-->
+
+
+    <!--      </ul>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <div class="div-left-2">
+        <div class="col-md-12 col-sm-12 col-12 col3">
+            <p class=" danh-muc">SẢN PHẨM NỘT BẬT</p>
+            <div class="the-tags">
+                <div class="khoi-nho">
+                    <div class="khoi-nho-left">
+                        <img src="styles/img/12.jpg" alt="" class="img-fluid">
+                    </div>
+                    <div class="khoi-nho-right">
+                        <p class="kho-nr-p">
+                            <a href="">Hạnh nhân Mỹ</a>
+                            <br>
+                            190.000
+                        </p>
+                    </div>
+
+                </div>
+                <div class="khoi-nho">
+                    <div class="khoi-nho-left">
+                        <img src="styles/img/6%5D.jpg" alt="" class="img-fluid">
+                    </div>
+                    <div class="khoi-nho-right">
+                        <p class="kho-nr-p">
+                            <a href="">Susu Úc</a>
+                            <br>
+                            300.000
+                        </p>
+                    </div>
+
+                </div>
+                <div class="khoi-nho">
+                    <div class="khoi-nho-left">
+                        <img src="styles/img/11.jpg" alt="" class="img-fluid">
+                    </div>
+                    <div class="khoi-nho-right">
+                        <p class="kho-nr-p">
+                            <a href="">Lê Đông Ti Mo</a>
+                            <br>
+                            Liên hệ
+                        </p>
+                    </div>
+
+                </div>
+                <div class="tatca">
+                    <p>Tất cả</p>
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#l').click(function () {
+            // alert('hello');
+            if (($(".testft").hasClass("div-ft"))) {
+                $("#l").removeClass("loc-add");
+                $(".testft").removeClass("div-ft");
+            } else {
+                $(".testft").addClass("div-ft");
+                $("#l").addClass("loc-add");
+            }
+        })
+        $('#btn-mobile').click(function () {
+            if ($("#menu-mobile").hasClass("display-block")) {
+                $("#menu-mobile").removeClass("display-block");
+            } else {
+                $("#menu-mobile").addClass("display-block");
+            }
+        })
+        $('#right-right').click(function () {
+            if ($("#menu-lever-2").hasClass("display-block")) {
+                $("#menu-lever-2").removeClass("display-block");
+            } else {
+                $("#menu-lever-2").addClass("display-block");
+            }
+
+        })
+        $('#nut').click(function () {
+            if ($("#lg02").hasClass("display-block")) {
+                $("#lg02").removeClass("display-block");
+            } else {
+                $("#lg02").addClass("display-block");
+            }
+        })
+    });
+
+</script>
+
+<%- include('../layouts/userFooter.ejs') %>

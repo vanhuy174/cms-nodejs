@@ -1,5 +1,5 @@
-<%- include('../layouts/headerM.ejs') %>
-<%- include('../layouts/navigationM.ejs') %>
+<%- include('../layouts/headerUser.ejs') %>
+
 
 
 <!-- PARALLAX BANNER -->
@@ -29,7 +29,7 @@
       <!-- FLASH MESSAGES -->
       <%- include('../layouts/flashMessages.ejs') %>
 
-      <p>If you already have an account with us, please login at the <a href="/login"><b>login page</b></a>.</p>
+      <p class="text-muted">If you already have an account with us, please login at the <a href="/login"><b>login page</b></a>.</p>
 
       <!-- Form -->
       <form name="form" class="form-horizontal" method="POST" action="/register" onsubmit="return checkCheckBox(this);">
@@ -477,7 +477,7 @@
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
             <!-- SUBMIT button -->
-            <input type="submit" class="btn btn-primary" value="Register">
+            <input type="submit" class="btn btn-success" value="Register">
           </div>
         </div>
 
@@ -503,5 +503,5 @@
   }
 </script> 
 
-<%- include('../layouts/footerM.ejs') %>
+<%- include('../layouts/userFooter.ejs') %>
 

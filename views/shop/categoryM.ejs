@@ -1,190 +1,426 @@
-<%- include('../layouts/headerM.ejs') %>
-<%- include('../layouts/navigationM.ejs') %>
+<%- include('../layouts/headerUser.ejs') %>
 
-
-<!-- PARALLAX BANNER -->
 <div class="breadcrumb parallax-container">
-  <% pages.forEach(page => {
-    if(page.firstSlug == 'shop') { %>
-      <div class="parallax"><img src="/images/pages/<%= page.firstSlug %>/<%= page.banner %>" alt="<%= page.banner %>"></div>
-    <% }
-  }); %>
-  <h1 class="category-title"><%= title %></h1>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/products">Products</a></li>
-    <% if(category != null) { %>
-      <li><a href="/products/<%= category.slug %>"><%= category.title %></a></li>
-    <% } %>
-  </ul>
-</div>
-<!-- End of PARALLAX BANNER -->
+    <div class="parallax"></div>
+    <h1>Tất cả sản phẩm </h1>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <!-- <li><a href="#">Account</a></li> -->
+      <li><a href="/products">Sản phẩm</a></li>
+    </ul>
+  </div>
 
-
-
-<!-- BELLOW BANNER CONTENT -->
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-
-
-    <!-- SIDEBAR -->
-    <%- include('../layouts/sidebarM.ejs') %>
-
-
-    <!-- PRODUCTS -->
-    <div class=" content col-sm-9">
-
-      <!-- FLASH MESSAGES -->
-      <%- include('../layouts/flashMessages.ejs') %>
-
-      <!-- FILTERING MENU -->
-      <div class="category-page-wrapper">
-        <!-- Sort By -->
-        <div class="col-md-9 text-right sort-wrapper">
-          <label class="control-label" for="input-sort">Sort By:</label>
-          <div class="sort-inner">
-            <select id="input-sort" class="form-control" onchange="if(this.value) window.location.href = this.value">
-              <option value="?page=<%= currentPage %>&dir=asc&order=sorting&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'asc' && order == 'sorting') { %> selected <% } %>>Default</option>
-              <option value="?page=<%= currentPage %>&dir=asc&order=title&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'asc' && order == 'title') { %> selected <% } %>>Name (A - Z)</option>
-              <option value="?page=<%= currentPage %>&dir=desc&order=title&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'desc' && order == 'title') { %> selected <% } %>>Name (Z - A)</option>
-              <option value="?page=<%= currentPage %>&dir=asc&order=price&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'asc' && order == 'price') { %> selected <% } %>>Price (Low &gt; High)</option>
-              <option value="?page=<%= currentPage %>&dir=desc&order=price&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'desc' && order == 'price') { %> selected <% } %>>Price (High &gt; Low)</option>
-              <!-- <option value="DESC">Rating (Highest)</option>
-              <option value="ASC">Rating (Lowest)</option>
-              <option value="ASC">Model (A - Z)</option>
-              <option value="DESC">Model (Z - A)</option> -->
-            </select>
-          </div>
-        </div>
-        <!-- Show : -->
-        <div class="col-md-1 text-right page-wrapper">
-          <label class="control-label" for="input-limit">Show:</label>
-          <div class="limit">
-            <select id="input-limit" class="form-control" onchange="if(this.value) window.location.href = this.value">
-              <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=12&stock=<%= stock %>&price=<%= price %>" <% if(limit == 12) { %> selected <% } %>>12</option>
-              <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=24&stock=<%= stock %>&price=<%= price %>" <% if(limit == 24) { %> selected <% } %>>24</option>
-              <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=36&stock=<%= stock %>&price=<%= price %>" <% if(limit == 36) { %> selected <% } %>>36</option>
-              <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=48&stock=<%= stock %>&price=<%= price %>" <% if(limit == 48) { %> selected <% } %>>48</option>
-              <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=96&stock=<%= stock %>&price=<%= price %>" <% if(limit == 96) { %> selected <% } %>>96</option>
-            </select>
-          </div>
-        </div>
-        <!-- Product Compare -->
-        <div class="col-md-6 list-grid-wrapper"> <a href="#" id="compare-total"></a>
-          <div class="btn-group btn-list-grid">
-            <button type="button" id="list-view" class="btn btn-default list" data-toggle="tooltip" title="List"></button>
-            <button type="button" id="grid-view" class="btn btn-default grid" data-toggle="tooltip" title="Grid"></button>
-          </div>
-        </div>
-        
-      </div>
-      <!-- End of FILTERING MENU -->
-
-      <br>
-
-      <!-- PRODUCTS -->
-      <div class="grid-list-wrapper">
-
-        <!-- Single PRODUCT -->
-        <% products.forEach(product => { %>
-        <div class="product-layout product-list col-xs-12">
-          <div class="product-thumb">
-            <!-- PRODUCT IMAGE -->
-            <div class="image product-imageblock">
-              <!-- Image -->
-              <a href="/products/<%=product.category.slug %>/<%= product.slug %>">
-                <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" alt="<%= product.image %>" title="<%= product.title %>" class="img-responsive">
-                <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" alt="<%= product.image %>" title="<%= product.title %>" class="img-responsive">
-              </a>
-              <!-- Hovering BUTTONS -->
-              <ul class="button-group grid-btn">
-                <li>
-                  <button type="button" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><a href="/wishlist/add/<%= product.slug %>"><i class="fa fa-heart-o"></i></a></button>
-                </li>
-                <!-- <li>
-                  <button type="button" class="compare" data-toggle="tooltip" data-placement="top" title="Compare this Product"><i class="fa fa-exchange"></i></button>
-                </li> -->
-                <li>
-                  <button type="button" class="quick-view" data-toggle="tooltip" data-placement="top" title="Quick View"><a href="/products/<%= product.category.slug %>/<%= product.slug %>"><i class="fa fa-eye"></i></a></button>
-                </li>
-                <li>
-                  <% if(user) { %>
-                    <button type="button" data-toggle="tooltip" data-placement="top" class="addtocart-btn" title="Add to Cart"><a href="/cart/add/<%= product.slug %>"><i class="fa fa-shopping-bag"></i></a></button>
-                  <% } else { %>
-                    <button type="button" data-toggle="tooltip" data-placement="top" class="addtocart-btn" title="Add to Cart" onclick="return confirm('Please log in, in order to be able to purchase this product!')"><i class="fa fa-shopping-bag"></i></button>
-                  <% } %>
-                </li>
-              </ul>
-            </div>
-            <!-- End of PRODUCT IMAGE -->
-            <!-- PRODUCT TITLE and PRICE -->
-            <div class="caption product-detail">
-              <!-- RATING STARS -->
-              <div class="rating"> 
-                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i><i class="fa fa-star fa-stack-2x"></i></span> 
-                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> 
+    <div class="col-md-9 d-right">
+      <div class="div-right-1">
+        <div class="row dong">
+          <div class="col-md-8 col-sm-5 col-5 dong-left">
+            <!-- Show : -->
+            <div class="row">
+              <div class="col-md-1 col-sm-5 col-5 text-right page-wrapper ">
+                <label class="control-label" for="input-limit">Show:</label>
               </div>
-              <!-- PRODUCT TITLE -->
-              <h4 class="product-name"><a href="/products/<%=product.category.slug %>/<%= product.slug %>" title="<%= product.title %>"><%= product.title %></a></h4>
-              <!-- PRODUCT PRICE -->
-              <p class="price product-price">
-                $<%= parseFloat(product.price).toFixed(2) %>
-                <% if (product.originalPrice !== product.price) { %>
-                  <span class="less">$<%= parseFloat(product.originalPrice).toFixed(2) %></span>
-                <% } %>
-                <span class="price-tax">Ex Tax: $<%= parseFloat(product.price * 0.8).toFixed(2) %></span>
-              </p>
-              <!-- PRODUCT LIST VIEW DETAILS -->
-              <p class="product-desc"><%= product.description %></p>
-              <ul class="button-group list-btn">
-                <li>
-                  <a href="/wishlist/add/<%= product.slug %>">
-                    <button type="button" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-heart-o"></i></button>
-                  </a>
-                </li>
-                <!-- <li>
-                  <button type="button" class="compare" data-toggle="tooltip" data-placement="top" title="Compare this Product"><i class="fa fa-exchange"></i></button>
-                </li> -->
-                <li>
-                  <a href="/products/<%= product.category.slug %>/<%= product.slug %>">
-                    <button type="button" class="quick-view" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="fa fa-eye"></i></button>
-                  </a>
-                </li>
-                <li>
-                  <% if(user) { %>
-                    <a href="/cart/add/<%= product.slug %>">
-                      <button type="button" class="addtocart-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i class="fa fa-shopping-bag"></i></button>
-                    </a>
-                  <% } else { %>
-                    <button type="button" class="addtocart-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i class="fa fa-shopping-bag" onclick="return confirm('Please log in, in order to be able to purchase this product!')"></i></button>
-                  <% } %>
-                </li>
-              </ul>
-              <!-- End of PRODUCT LIST VIEW DETAILS -->
+              <div class="col-md-2 col-sm-5 col-5 text-right page-wrapper">
+                <div class="limit">
+                  <select id="input-limit" class="form-control" onchange="if(this.value) window.location.href = this.value">
+                    <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=2&stock=<%= stock %>&price=<%= price %>" <% if(limit == 2) { %> selected <% } %>>2</option>
+                    <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=4&stock=<%= stock %>&price=<%= price %>" <% if(limit == 4) { %> selected <% } %>>4</option>
+                    <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=36&stock=<%= stock %>&price=<%= price %>" <% if(limit == 36) { %> selected <% } %>>36</option>
+                    <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=48&stock=<%= stock %>&price=<%= price %>" <% if(limit == 48) { %> selected <% } %>>48</option>
+                    <option value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=96&stock=<%= stock %>&price=<%= price %>" <% if(limit == 96) { %> selected <% } %>>96</option>
+                  </select>
+                </div>
+              </div>
+
             </div>
-            <!-- End of PRODUCT TITLE and PRICE -->
+
+          </div>
+          <div class="col-md-4 col-sm-7 col-7 dong-right">
+            <span class="sap-xep">Sắp xếp: </span>
+
+            <div class="col-md-9 text-right sort-wrapper sx">
+              <div class="sort-inner">
+                <select id="input-sort" class="form-control" onchange="if(this.value) window.location.href = this.value">
+                  <option value="?page=<%= currentPage %>&dir=asc&order=sorting&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'asc' && order == 'sorting') { %> selected <% } %>>Default</option>
+                  <option value="?page=<%= currentPage %>&dir=asc&order=title&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'asc' && order == 'title') { %> selected <% } %>>Name (A - Z)</option>
+                  <option value="?page=<%= currentPage %>&dir=desc&order=title&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'desc' && order == 'title') { %> selected <% } %>>Name (Z - A)</option>
+                  <option value="?page=<%= currentPage %>&dir=asc&order=price&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'asc' && order == 'price') { %> selected <% } %>>Price (Low &gt; High)</option>
+                  <option value="?page=<%= currentPage %>&dir=desc&order=price&limit=<%= limit %>&stock=<%= stock %>&price=<%= price %>" <% if(dir == 'desc' && order == 'price') { %> selected <% } %>>Price (High &gt; Low)</option>
+                  <!-- <option value="DESC">Rating (Highest)</option>
+                  <option value="ASC">Rating (Lowest)</option>
+                  <option value="ASC">Model (A - Z)</option>
+                  <option value="DESC">Model (Z - A)</option> -->
+                </select>
+              </div>
+
+            </div>
           </div>
         </div>
-        <!-- End of Single PRODUCT -->
-        <% }); %>
+        <div class="row dong-botton">
+          <% products.forEach(product => { %>
+            <div class="col-md-4 col-sm-6 col-6 clearfix">
+              <div class="product-info">
+                <a href="/products/<%=product.category.slug %>/<%= product.slug %>">
+                  <img src="/images/products/<%= product.firstSlug %>/<%= product.image %>" alt="<%= product.image %>" title="<%= product.title %>" class="img-responsive product-info-img">
 
+                </a>
+                <div class="product">
+                  <h4 class="product-name"><a href="/products/<%=product.category.slug %>/<%= product.slug %>" title="<%= product.title %>"><%= product.title %></a></h4>
+                  <p class="price product-price">
+                    $<%= parseFloat(product.price).toFixed(2) %>
+                    <% if (product.originalPrice !== product.price) { %>
+                      <span class="less">$<%= parseFloat(product.originalPrice).toFixed(2) %></span>
+                    <% } %>
+                    <span class="price-tax">Ex Tax: $<%= parseFloat(product.price * 0.8).toFixed(2) %></span>
+                  </p>
+                </div>
+                <div class="div-heart">
+                  <ul class="ul-heart">
+                    <li class="li1 l">
+                      <!--                      <span><a href=""><i class="fa fa-heart" aria-hidden="true"></i></a></span>-->
+                      <button type="button" class="wishlist hv_icon " data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                        <a href="/wishlist/add/<%= product.slug %>"><i class="fa fa-heart-o"></i></a>
+                      </button>
+
+                    </li>
+                    <li class="li2 l">
+                      <!--                      <span><a href=""><i class="fa fa-cart-plus"aria-hidden="true"></i></a></span>-->
+                      <button type="button" class="quick-view  hv_icon" data-toggle="tooltip" data-placement="top" title="Quick View">
+                        <a href="/products/<%= product.category.slug %>/<%= product.slug %>"><i class="fa fa-eye"></i></a>
+                      </button>
+                    </li>
+                    <li class="li3 l">
+                      <!--                      <span><a href=""><i class="fa fa-search-plus" aria-hidden="true"></i></a></span>-->
+                      <% if(user) { %>
+                        <button type="button" data-toggle="tooltip" data-placement="top" class="addtocart-btn hv_icon" title="Add to Cart">
+                          <a href="/cart/add/<%= product.slug %>"><i class="fa fa-shopping-bag"></i></a>
+                        </button>
+                      <% } else { %>
+                        <button type="button" data-toggle="tooltip" data-placement="top" class="addtocart-btn  hv_icon" title="Add to Cart" onclick="return confirm('Please log in, in order to be able to purchase this product!')"><i class="fa fa-shopping-bag"></i></button>
+                      <% } %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+
+
+          <% }); %>
+
+        </div>
+        <%- include('../layouts/paginationM.ejs') %>
       </div>
-      <!-- End of PRODUCTS -->
-
-
-      <!-- PAGINATION -->
-			<%- include('../layouts/paginationM.ejs') %>
-
-
     </div>
-    <!-- End of PRODUCTS -->
+    <div class="col-md-3 d-left">
+      <div class="div-left-1">
+        <div class="col-md-12 col-sm-12 col-12 col3">
+          <p class=" danh-muc">DANH MỤC</p>
+          <ul class="list-group box-category treeview">
 
+            <!-- Link -> Category -->
+            <% categories.forEach(category => { %>
+              <li class="list-group-item">
+                <i class="fa fa-square" aria-hidden="true"></i>
+                <a href="/products/<%= category.slug %>" class="activSub lg " style="text-transform: none"><%= category.title %></a>
+
+              </li>
+            <% }); %>
+
+          </ul>
+        </div>
+      </div>
+      <div class="div-left-2">
+        <div class="col-md-12 col-sm-12 col-12 col3 ">
+          <p class=" danh-muc">THEO MỨC GIÁ</p>
+
+          <div id="filter-group2" class="the-tags">
+            <label class="checkbox">
+              <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>&price=low" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(price == 'low') { %> checked <% } %>>
+              $<%= min %>-$<%= med1 %> (<%= numItemsLow %>)
+            </label><br>
+            <label class="checkbox">
+              <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>&price=medium" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(price == 'medium') { %> checked <% } %>>
+              $<%= med1 %>-$<%= med2 %> (<%= numItemsMedium %>)
+            </label><br>
+            <label class="checkbox">
+              <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>&price=high" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(price == 'high') { %> checked <% } %>>
+              $<%= med2 %>-$<%= max %> (<%= numItemsHigh %>)
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="div-left-1">
+        <div class="col-md-12 col-sm-12 col-12 col3">
+          <p class=" danh-muc">THEO LOẠI</p>
+          <div class="list-group-item">
+            <div id="filter-group1">
+              <label class="checkbox">
+                <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&price=<%= price %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=inStock&price=<%= price %>" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(stock == 'inStock') { %> checked <% } %>>
+                In Stock (<%= numItemsIn %>)
+              </label><br>
+              <label class="checkbox">
+                <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&price=<%= price %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=outOfStock&price=<%= price %>" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(stock == 'outOfStock') { %> checked <% } %>>
+                Out of Stock (<%= numItemsOut %>)
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="div-left-2">
+        <div class="col-md-12 col-sm-12 col-12 col3">
+          <p class=" danh-muc">SẢN PHẨM NỘT BẬT</p>
+          <% specialProds.forEach(product => { %>
+          <div class="the-tags">
+            <div class="khoi-nho row">
+              <div class="khoi-nho-left col-md-5">
+                <a href="/products/<%= product.category.slug %>/<%= product.slug %>">
+                  <img class="img-responsive img-fluid" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
+                </a>
+                <div class="addto-cart">
+                  <% if(user) { %>
+                    <a href="/cart/add/<%= product.slug %>" style="text-transform: none" >Add to Cart</a>
+                    <!-- <a href="/cart/add/<%= product.slug %>?url=<%= title %>">Add to Cart</a> -->
+                  <% } else { %>
+                    <a href="/cart/add/<%= product.slug %>" onclick="return confirm('Please log in, in order to be able to purchase this product!')" style="text-transform: none">Add to Cart</a>
+                  <% }; %>
+                </div>
+              </div>
+              <div class="khoi-nho-right col-md-7">
+                <p class="kho-nr-p">  </p>
+                <div class="col-md-12">
+                  <h4 class="product-name">
+                    <a title="<%= product.title %>" href="/products/<%= product.category.slug %>/<%= product.slug %>"><%= product.title %></a>
+                  </h4>
+                  <p class="price product-price">
+                    <span class="price-new">$<%= parseFloat(product.price).toFixed(2) %></span>
+                    <span class="less">$<%= parseFloat(product.originalPrice).toFixed(2) %></span>
+                  </p>
+                </div>
+
+<!--                  <a href="">Hạnh nhân Mỹ</a>-->
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- End of BELOW BANNER CONTENT -->
+<div class="loc" id="l">
+  <i class="fa fa-filter" aria-hidden="true"></i>
+</div>
+
+<div class="testft">
+  <div class="div-left-1">
+    <div class="col-md-12 col-sm-12 col-12 col3">
+      <p class=" danh-muc">DANH MỤC</p>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <i class="fa fa-square" aria-hidden="true"></i>
+          <a href="" class="lg  ">Trang chủ</a>
+        </li>
+        <li class="list-group-item">
+          <i class="fa fa-square" aria-hidden="true"></i>
+          <a href="" class="lg">Sản phẩm</a>
+          <i class="fa fa-angle-down" id="nutt" aria-hidden="true"></i>
+          <ul class="list-group-02" id="lg022">
+            <li>
+              <i class="fa fa-square" aria-hidden="true"></i>
+              <a href="" class="mna">Hoa quả trong nước</a>
+            </li>
+            <li>
+              <i class="fa fa-square" aria-hidden="true"></i>
+              <a href="" class="mna">Hoa quả nhập khẩu</a>
+            </li>
+            <li>
+              <i class="fa fa-square" aria-hidden="true"></i>
+              <a href="" class="mna">Hoa quả theo mùa</a>
+            </li>
+            <li>
+              <i class="fa fa-square" aria-hidden="true"></i>
+              <a href="" class="mna">Hoa quả sạch</a>
+            </li>
+          </ul>
+        </li>
+        <li class="list-group-item">
+          <i class="fa fa-square" aria-hidden="true"></i>
+          <a href="" class="lg ">Blog</a>
+        </li>
+        <li class="list-group-item">
+          <i class="fa fa-square" aria-hidden="true"></i>
+          <a href="" class="lg ">Giới thiệu</a>
+        </li>
+        <li class="list-group-item">
+          <i class="fa fa-square" aria-hidden="true"></i>
+          <a href="" class="lg">Liên hệ</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="div-left-2">
+    <div class="col-md-12 col-sm-12 col-12 col3 ">
+      <p class=" danh-muc">THEO MỨC GIÁ</p>
+      <div class="the-tags">
+        <span class="the-tags-item"><a href="">Cam</a></span>
+        <span class="the-tags-item"><a href="">Dâu</a></span>
+        <span class="the-tags-item"><a href="">Hoa quả</a></span>
+        <span class="the-tags-item"><a href="">Rau sạch</a></span>
+      </div>
+    </div>
+  </div>
+  <div class="div-left-1">
+    <div class="col-md-12 col-sm-12 col-12 col3">
+      <p class=" danh-muc">THEO LOẠI</p>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label class="lb">
+            <input type="checkbox" class="cb">
+            Hoa quả tươi
+          </label>
+        </li>
+        <li class="list-group-item">
+          <label class="lb">
+            <input type="checkbox" class="cb">
+            Thực phẩm sạch
+          </label>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+<!--  <div class="div-left-1">-->
+<!--    <div class="col-md-12 col-sm-12 col-12 col3">-->
+<!--      <p class=" danh-muc">THEO THƯƠNG HIỆU</p>-->
+<!--      <ul class="list-group">-->
+<!--        <li class="list-group-item">-->
+<!--          <label class="lb">-->
+<!--            <input type="checkbox" class="cb">-->
+<!--            Canada-->
+<!--          </label>-->
+<!--        </li>-->
+<!--        <li class="list-group-item">-->
+<!--          <label class="lb">-->
+<!--            <input type="checkbox" class="cb">-->
+<!--            Hoa kỳ-->
+<!--          </label>-->
+<!--        </li>-->
+<!--        <li class="list-group-item">-->
+<!--          <label class="lb">-->
+<!--            <input type="checkbox" class="cb">-->
+<!--            Rasa-->
+<!--          </label>-->
+<!--        </li>-->
+<!--        <li class="list-group-item">-->
+<!--          <label class="lb">-->
+<!--            <input type="checkbox" class="cb">-->
+<!--            Totari-->
+<!--          </label>-->
+<!--        </li>-->
+<!--        <li class="list-group-item">-->
+<!--          <label class="lb">-->
+<!--            <input type="checkbox" class="cb">-->
+<!--            Úc-->
+<!--          </label>-->
+<!--        </li>-->
 
 
-<%- include('../layouts/footerM.ejs') %>
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="div-left-2">
+    <div class="col-md-12 col-sm-12 col-12 col3">
+      <p class=" danh-muc">SẢN PHẨM NỘT BẬT</p>
+      <div class="the-tags">
+        <div class="khoi-nho">
+          <div class="khoi-nho-left">
+            <img src="styles/img/12.jpg" alt="" class="img-fluid">
+          </div>
+          <div class="khoi-nho-right">
+            <p class="kho-nr-p">
+              <a href="">Hạnh nhân Mỹ</a>
+              <br>
+              190.000
+            </p>
+          </div>
+
+        </div>
+        <div class="khoi-nho">
+          <div class="khoi-nho-left">
+            <img src="styles/img/6%5D.jpg" alt="" class="img-fluid">
+          </div>
+          <div class="khoi-nho-right">
+            <p class="kho-nr-p">
+              <a href="">Susu Úc</a>
+              <br>
+              300.000
+            </p>
+          </div>
+
+        </div>
+        <div class="khoi-nho">
+          <div class="khoi-nho-left">
+            <img src="styles/img/11.jpg" alt="" class="img-fluid">
+          </div>
+          <div class="khoi-nho-right">
+            <p class="kho-nr-p">
+              <a href="">Lê Đông Ti Mo</a>
+              <br>
+              Liên hệ
+            </p>
+          </div>
+
+        </div>
+        <div class="tatca">
+          <p>Tất cả</p>
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  $(document).ready(function () {
+    $('#l').click(function () {
+      // alert('hello');
+      if (($(".testft").hasClass("div-ft"))) {
+        $("#l").removeClass("loc-add");
+        $(".testft").removeClass("div-ft");
+      } else {
+        $(".testft").addClass("div-ft");
+        $("#l").addClass("loc-add");
+      }
+    })
+    $('#btn-mobile').click(function () {
+      if ($("#menu-mobile").hasClass("display-block")) {
+        $("#menu-mobile").removeClass("display-block");
+      } else {
+        $("#menu-mobile").addClass("display-block");
+      }
+    })
+    $('#right-right').click(function () {
+      if ($("#menu-lever-2").hasClass("display-block")) {
+        $("#menu-lever-2").removeClass("display-block");
+      } else {
+        $("#menu-lever-2").addClass("display-block");
+      }
+
+    })
+    $('#nut').click(function () {
+      if ($("#lg02").hasClass("display-block")) {
+        $("#lg02").removeClass("display-block");
+      } else {
+        $("#lg02").addClass("display-block");
+      }
+    })
+  });
+
+</script>
+
+<%- include('../layouts/userFooter.ejs') %>
