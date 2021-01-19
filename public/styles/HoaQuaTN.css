@@ -763,6 +763,7 @@ a {
     top: 40%;
     left: 36%;
     margin-top: 10px;
+    padding: 20px;
 }
 .breadcrumb>ul>li {
     list-style: none;
@@ -1122,7 +1123,7 @@ label {
     opacity: 0;
     position: absolute;
     bottom: 20%;
-    left: 7px;
+    left: 82px;
 }
 .product-info:hover .div-heart{
     opacity: 1;

@@ -45,7 +45,7 @@
                             <div class="col-md-12 col-sm-12 col-12">
                                 <div class="row dong-duoi">
                                     <div class="col-md-5 col-sm-12 col-12  anh-left">
-                                        <a href="/products/<%= product.category.slug %>/<%= product.slug %>">
+                                        <a href="<%= url %>products/<%= product.category.slug %>/<%= product.slug %>">
                                             <img class="img-responsive img-fluid" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
                                         </a>
                                     </div>
@@ -59,7 +59,7 @@
                                         <p class="blog-item-summary">
                                             <%- product.features %>
                                         </p>
-                                        <a href="blogs/<%=product.slug %>" class="btn btn-white">Đọc thêm</a>
+                                        <a href="<%= url %>blogs/<%=product.slug %>" class="btn btn-white">Đọc thêm</a>
                                     </div>
 
                                 </div>
@@ -97,7 +97,7 @@
                         <div class="the-tags">
                             <div class="khoi-nho row">
                                 <div class="khoi-nho-left col-md-5">
-                                    <a href="/blogs/<%= product.slug %>">
+                                    <a href="http://localhost:3000/blogs/<%= product.slug %>">
                                         <img class="img-responsive img-fluid" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
                                     </a>
 
@@ -106,12 +106,11 @@
                                     <p class="kho-nr-p">  </p>
                                     <div class="col-md-12">
                                         <h4 class="product-name">
-                                            <a href="/blogs/<%= product.slug%>"><%= product.title %></a>
+                                            <a href="http://localhost:3000/blogs/<%= product.slug%>"><%= product.title %></a>
                                         </h4>
 
                                     </div>
 
-                                    <!--                  <a href="">Hạnh nhân Mỹ</a>-->
                                 </div>
                             </div>
                         </div>

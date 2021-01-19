@@ -4,6 +4,7 @@ const path = require('path');
 const pdfkit = require('pdfkit');
 
 const Page = require('../models/Page');
+const inforPage = require('../models/InfoPage');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 const InfoPage = require('../models/InfoPage');
@@ -19,8 +20,8 @@ const urll = "styles/";
 
 exports.readMore = async (req, res, next)=>{
      const id = req.params.id;
-
      const news = await News.findOne({slug:id});
+     // const news = await News.findOne();
      const cmscategori = await CmsCategory.find();
      res.render('shop/readMore',{
           news:news,
@@ -28,10 +29,23 @@ exports.readMore = async (req, res, next)=>{
           cmscategori:cmscategori,
           urll: urll,
           url: url,
-          // title: page.title,
-          title: "This is page",
+          title: news.title,
+          // title: "This is page",
 
 
+     });
+}
+
+exports.getPage = async (req, res, next)=>{
+     const id = req.params.id;
+     const page = await inforPage.findOne({slug:id});
+     res.render('shop/viewPage',{
+          page:page,
+          style: "ReadMore",
+          urll: urll,
+          url: url,
+          title: page.title
+          // title: "This is page",
      });
 }
 
@@ -160,6 +174,7 @@ exports.getInfoPage = async (req, res, next) => {
 
 exports.blogCategory = async (req, res, next) => {
      // Parse filters:
+     // const ITEMS_PER_PAGE = +req.query.limit || 2;
      const idcategory = await CmsCategory.findOne({slug: req.params.id } )
      let ITEMS_PER_PAGE = +req.query.limit || 2;
      const dir = req.query.dir || 'asc';
@@ -516,7 +531,8 @@ exports.getAllProducts = async (req, res, next) => {
           
 exports.getProductsByCategory = async (req, res, next) => {
      // Parse filters:
-     const ITEMS_PER_PAGE = +req.query.limit || 12;
+     const ITEMS_PER_PAGE = +req.query.limit || 2;
+
      const dir = req.query.dir || 'asc';
      const order = req.query.order || 'sorting';
      const stock = req.query.stock || '';

@@ -12,6 +12,8 @@ router.get('/blogs', shopController.blogsgetAll);
 router.get('/blogs/category/:id', shopController.blogCategory);
 router.get('/blogs/:id', shopController.readMore);
 
+router.get('/page/:id', shopController.getPage);
+
 
 router.get('/brands', shopController.getAllBrands);
 router.get('/brands/:brandSlug', shopController.getProductsByBrand);

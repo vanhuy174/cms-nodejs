@@ -63,33 +63,8 @@
                 <div class="col-sm-12">
                     <!-- Left side -->
                     <div class="top-left pull-left">
-                        <div class="language">
-                            <form action="#" method="post" enctype="multipart/form-data" id="language">
-                                <div class="btn-group">
-                                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> English <span class="caret"></span></button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Arabic</a></li>
-                                        <li><a href="#"> English</a></li>
-                                        <li><a href="#"> French</a></li>
-                                    </ul>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="currency">
-                            <form action="#" method="post" enctype="multipart/form-data" id="currency">
-                                <div class="btn-group">
-                                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown"> <strong>USD</strong> <span class="caret"></span> </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Euro</a></li>
-                                        <li><a href="#">Pound</a></li>
-                                        <li><a href="#">USD</a></li>
-                                    </ul>
-                                </div>
-                            </form>
-                        </div>
                         <div class="wel-come-msg"> Welcome <% if(user) { %> <u><b><%= user.username %></b></u><% } %> to our online store! </div>
                     </div>
-
                     <!-- Right side-->
                     <div class="top-right pull-right">
                         <div id="top-links" class="nav pull-right">
@@ -99,20 +74,21 @@
                                     <a href="#" title="My Account" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                         <span>My Account</span>
-                                        <span class="caret"></span>
+                                        <!--                                    <span class="caret"></span>-->
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-right">
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                         <!-- If USER is logged in -->
                                         <% if(user) { %>
-                                            <li><a href="/logout">Logout</a></li>
-                                            <li><a href="/orders">Order History</a></li>
+                                            <li><a href="/logout" style="color: #1d2124 !important;">Logout</a></li>
+                                            <li><a href="/orders" style="color: #1d2124 !important;">Order History</a></li>
                                         <% } else { %>
                                             <!-- If USER is logged out -->
-                                            <li><a href="/login">Login</a></li>
-                                            <li><a href="/register">Register</a></li>
+                                            <li><a href="/login" style="color: #1d2124 !important;">Login</a></li>
+                                            <li><a href="/register" style="color: #1d2124 !important;">Register</a></li>
                                         <% } %>
                                     </ul>
                                 </li>
+
                                 <!-- End of MY ACCOUNT Dropdown Menu -->
                                 <!-- WISH LIST Menu -->
                                 <li>
@@ -130,7 +106,9 @@
                                 <!-- End of WISH LIST Menu -->
                             </ul>
                         </div>
+
                     </div>
+                    <script>$('.dropdown-toggle').dropdown()</script>
                     <!-- End of Right Side -->
 
                 </div>
@@ -144,11 +122,11 @@
         <div class="header-inner ">
             <!-- LOWER HEADER - Left Side -->
             <div class="col-sm-3 col-xs-3 header-left">
-                <div id="logo">
-                    <a href="/">
-                        <img src="/images/info/<%= info.logo %>" title="E-Commerce" alt="E-Commerce" class="img-responsive" style="width: 150px">
-                    </a>
-                </div>
+<!--                <div id="logo">-->
+<!--                    <a href="/">-->
+<!--                        <img src="/images/info/<%= info.logo %>" title="E-Commerce" alt="E-Commerce" class="img-responsive" style="width: 150px">-->
+<!--                    </a>-->
+<!--                </div>-->
             </div>
             <!-- End of LEFT SIDE -->
 
@@ -171,6 +149,8 @@
                                 <li><a href="/admin/brands" class="parent">Brands</a></li>
                                 <li><a href="/admin/edit-info" class="parent">Site Data</a></li>
                                 <li><a href="/admin/info-pages" class="parent">Info Pages</a></li>
+                                <li><a href="/admin/cmsCategories">Categories</a></li>
+                                <li><a href="/admin/blogs">Blog</a></li>
                             </ul>
                         </div>
 

@@ -150,7 +150,9 @@
     margin-bottom: 30px;
     background: #fefefe;
 }
-
+.product-info:hover .product-name a{
+    color: #83b601 !important;
+}
 .sale {
     width: 22%;
     height: 30px;
@@ -578,7 +580,7 @@ button.btn:hover {
 
 .re {
     position: relative;
-    bottom: 78px;
+    bottom: 77px;
 }
 
 .b-tab {

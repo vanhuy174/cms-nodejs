@@ -119,11 +119,12 @@ span.hidden-xs, span.hidden-sm, span.hidden-md, span.hidden-lg {
 	padding: 0 20px;
 }
 #top .btn-link, #top-links a {
-	color: #fff;
-	font-weight: normal;
+	color: #fff !important;
+	font-weight: 500;
 	text-decoration: none;
 	padding: 0px 7px 0;
 	display: inline-block;
+	text-transform: uppercase ;
 }
 #top-links li .fa {
 	font-size: 12px;
@@ -177,10 +178,11 @@ span.hidden-xs, span.hidden-sm, span.hidden-md, span.hidden-lg {
 .wel-come-msg {
 	color: #fff;
 	float: left;
-	padding: 12px 20px 0 0;
+	padding: 9px 20px 0 0;
 }
 .header-top {
 	background: #3ab54a;
+	padding: 7px 0;
 }
 .language .btn.btn-link.dropdown-toggle, .currency .btn.btn-link {
 	padding: 12px 20px 10px 0px;
